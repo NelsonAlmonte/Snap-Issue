@@ -87,17 +87,23 @@
 		}
 	}
 
-	takePictureButton.onclick = () => {
-		sendIssue();
+	takePictureButton.onclick = async () => {
+		//TODO - Llamar al Modal, tomar la foto y location
+		const picture = takePicture();
+		const position = await getLocation();
+		console.log(picture, position);
+		// sendIssue();
 	};
 
 	async function sendIssue() {
+		//TODO - Esta funcion se llamara en el boton del Modal para guardar el issue
 		const picture = takePicture();
 		const position = await getLocation();
 		console.log(picture, position);
 	}
 
 	function takePicture() {
+		//TODO - Add imagen a una variable o hidden input
 		canvas.width = video.videoWidth;
 		canvas.height = video.videoHeight;
 		canvas.getContext('2d').drawImage(video, 0, 0);
@@ -106,6 +112,7 @@
 	}
 
 	async function getLocation() {
+		//TODO - Añadir location a una variable o hidden input
 		const position = await getCurrentPosition();
 		return {
 			lat: position.coords.latitude,

@@ -1,0 +1,74 @@
+:root {
+  scroll-behavior: smooth;
+  /* Template colors */
+  --color-dominant: #F8EDE3; /* %60 */
+  --color-complementary: #BDD2B6; /* %30 */
+  --color-accent: #798777; /* %10 */
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-dominant);
+}
+
+/*--------------------------------------------------------------
+# Background
+--------------------------------------------------------------*/
+.bg-dominant {
+  background-color: var(--color-dominant);
+}
+
+.bg-complementary {
+  background-color: var(--color-complementary);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+.circle-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  border-radius: 100%;
+  font-size: 20px;
+}
+
+video, .picture {
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
+}
+
+/*--------------------------------------------------------------
+# Modal
+--------------------------------------------------------------*/
+
+.modal-header-placeholder {
+  display: inline-flex;
+  height: 2rem;
+  width: 2rem;
+}
+
+.modal-header-icon {
+  align-items: center;
+  border-radius: 50%;
+  box-sizing: content-box;
+  cursor: pointer;
+  display: inline-flex;
+  height: 1rem;
+  justify-content: center;
+  padding: 0.5rem;
+  width: 1rem;
+}
+
+.modal-header-icon:hover {
+  background-color: var(--color-complementary);
+}
+
+.modal-header-icon i {
+  font-size: 32px;
+}
