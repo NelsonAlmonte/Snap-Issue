@@ -1,6 +1,9 @@
 (function () {
 	const playButton = document.querySelector('.play');
+	const takePictureButton = document.querySelector('.take-picture');
 	const video = document.querySelector('video');
+	const canvas = document.querySelector('canvas');
+	const picture = document.querySelector('.picture');
 
 	const initialConstraints = {
 		video: {
@@ -82,5 +85,40 @@
 				// TODO: Mostrar mensaje de que no tiene permiso
 				break;
 		}
+	}
+
+	takePictureButton.onclick = () => {
+		sendIssue();
+	};
+
+	async function sendIssue() {
+		const picture = takePicture();
+		const position = await getLocation();
+		console.log(picture, position);
+	}
+
+	function takePicture() {
+		canvas.width = video.videoWidth;
+		canvas.height = video.videoHeight;
+		canvas.getContext('2d').drawImage(video, 0, 0);
+		picture.src = canvas.toDataURL('image/jpeg');
+		return canvas.toDataURL('image/jpeg');
+	}
+
+	async function getLocation() {
+		const position = await getCurrentPosition();
+		return {
+			lat: position.coords.latitude,
+			long: position.coords.longitude,
+		};
+	}
+
+	function getCurrentPosition() {
+		return new Promise((resolve, reject) => {
+			navigator.geolocation.getCurrentPosition(
+				(position) => resolve(position),
+				(error) => reject(error)
+			);
+		});
 	}
 })();
