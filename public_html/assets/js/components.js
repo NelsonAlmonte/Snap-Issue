@@ -1,5 +1,74 @@
 document.addEventListener('alpine:init', () => {
 
+  Alpine.data('permissions', () => ({
+    permissionsToValidate: [
+      { name: 'camera' }, { name: 'geolocation' },
+    ],
+    async checkPermission(type) {
+      const permission = await navigator.permissions.query({ name: type });
+      console.log(permission);
+
+      const payload = {
+        type: type,
+        state: permission.state,
+      };
+      if (type === 'camera') {
+        payload.method = this.initCamera;
+      } else {
+        payload.method = this.initLocation;
+      }
+
+      this.handlePermission(payload);
+    },
+    async handlePermission(payload) {
+      switch (payload.state) {
+        case 'granted':
+        console.log('tiene permiso');
+          // TODO: Continuar
+          break;
+        case 'prompt':
+          try {
+            await payload.method;
+          } catch (error) {
+            console.log(error);
+            //TODO: Mostrar mensaje de que no tiene permiso o no hay camara
+          }
+          break;
+        case 'denied':
+          console.log('Negaste el permiso, por favor acepta de nuevo');
+          // TODO: Mostrar mensaje de que no tiene permiso
+          break;
+      }
+    },
+    initCamera() {
+      return navigator.mediaDevices.getUserMedia({ video: true });
+    },
+    initLocation() {
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => resolve(position),
+          (error) => reject(error)
+        );
+      });
+    },
+    async validatePermissions() {
+      const validationTarget = 2;
+      let successfullValidations = 0;
+      
+      for (const permission of this.permissionsToValidate) {
+        let foo = await navigator.permissions.query({ name: permission.name });
+        if (foo.state === 'granted') successfullValidations ++;
+        console.log(foo);
+      }
+
+      if (validationTarget === successfullValidations) {
+        console.log('siuuu');
+      } else {
+        console.log('Acepte los demas permisos');
+      }
+    }
+  }));
+
 	Alpine.data('initCamera', () => ({
     initialConstraints: {
       video: {

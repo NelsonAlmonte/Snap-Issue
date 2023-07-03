@@ -10,4 +10,9 @@ class Home extends BaseController
             view('welcome_message') .
             view('template/footer');
     }
+
+    public function onboarding()
+    {
+        return view('onboarding');
+    }
 }

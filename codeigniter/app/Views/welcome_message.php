@@ -1,5 +1,4 @@
 
-<body>
   <div x-data="initCamera" x-init="checkPermission">
     <video class="p-4" autoplay x-ref="video"></video>
     <canvas class="d-none" x-ref="canvas"></canvas>
