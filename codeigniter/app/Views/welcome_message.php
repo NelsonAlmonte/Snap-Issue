@@ -1,5 +1,5 @@
 
-  <div x-data="initCamera" x-init="checkPermission">
+  <div x-data="initCamera">
     <video class="p-4" autoplay x-ref="video"></video>
     <canvas class="d-none" x-ref="canvas"></canvas>
     <div class="d-flex justify-content-center align-items-center">

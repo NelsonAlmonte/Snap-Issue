@@ -4,13 +4,23 @@ document.addEventListener('alpine:init', () => {
     permissionsToValidate: [
       { name: 'camera' }, { name: 'geolocation' },
     ],
+    permissionState: '',
+    step: 0,
+    init() {
+      this.$watch('permissionState', (value, oldValue) => {
+        console.log(value, oldValue);
+        if (value === 'granted') {
+          this.step ++;
+          this.permissionState = oldValue;
+        }
+      })
+    },
     async checkPermission(type) {
-      const permission = await navigator.permissions.query({ name: type });
-      console.log(permission);
+      const state = await this.getPermissionState(type);
 
       const payload = {
         type: type,
-        state: permission.state,
+        state: state,
       };
       if (type === 'camera') {
         payload.method = this.initCamera;
@@ -23,25 +33,34 @@ document.addEventListener('alpine:init', () => {
     async handlePermission(payload) {
       switch (payload.state) {
         case 'granted':
-        console.log('tiene permiso');
+          this.permissionState = await this.getPermissionState(payload.type);
+          console.log('tiene permiso');
           // TODO: Continuar
           break;
         case 'prompt':
           try {
-            await payload.method;
+            await payload.method();
+            this.permissionState = await this.getPermissionState(payload.type);
           } catch (error) {
+            this.permissionState = await this.getPermissionState(payload.type);
             console.log(error);
             //TODO: Mostrar mensaje de que no tiene permiso o no hay camara
           }
           break;
         case 'denied':
+          this.permissionState = await this.getPermissionState(payload.type);
           console.log('Negaste el permiso, por favor acepta de nuevo');
           // TODO: Mostrar mensaje de que no tiene permiso
           break;
       }
     },
-    initCamera() {
-      return navigator.mediaDevices.getUserMedia({ video: true });
+    async getPermissionState(type) {
+      const permission = await navigator.permissions.query({ name: type });
+      return permission.state;
+    },
+    async initCamera() {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      stream.getTracks().forEach((track) => track.stop());
     },
     initLocation() {
       return new Promise((resolve, reject) => {
@@ -87,33 +106,8 @@ document.addEventListener('alpine:init', () => {
         // },
       },
     },
-    async checkPermission() {
-      const permission = await navigator.permissions.query({ name: 'camera' });
-      this.handlePermission(permission.state);
-  
-      permission.addEventListener('change', (event) => {
-        console.log(event.currentTarget.state);
-        this.handlePermission(event.currentTarget.state);
-      });
-    },
-    async handlePermission(state) {
-      switch (state) {
-        case 'granted':
-          this.startStream();
-          break;
-        case 'prompt':
-          try {
-            await navigator.mediaDevices.getUserMedia(this.initialConstraints);
-          } catch (error) {
-            console.log(error);
-            //TODO: Mostrar mensaje de que no tiene permiso o no hay camara
-          }
-          break;
-        case 'denied':
-          console.log('Negaste el permiso, por favor acepta de nuevo');
-          // TODO: Mostrar mensaje de que no tiene permiso
-          break;
-      }
+    init() {
+      this.startStream();
     },
     async startStream() {
       const deviceId = await this.getDeviceId();

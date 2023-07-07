@@ -17,7 +17,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'https://snap-issue.us-1.sharedwithexpose.com/';
+    public string $baseURL = 'https://localhost.us-1.sharedwithexpose.com/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
