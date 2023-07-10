@@ -1,14 +1,10 @@
 document.addEventListener('alpine:init', () => {
 
   Alpine.data('permissions', () => ({
-    permissionsToValidate: [
-      { name: 'camera' }, { name: 'geolocation' },
-    ],
     permissionState: '',
     step: 0,
     init() {
       this.$watch('permissionState', (value, oldValue) => {
-        console.log(value, oldValue);
         if (value === 'granted') {
           this.step ++;
           this.permissionState = oldValue;
@@ -70,22 +66,6 @@ document.addEventListener('alpine:init', () => {
         );
       });
     },
-    async validatePermissions() {
-      const validationTarget = 2;
-      let successfullValidations = 0;
-      
-      for (const permission of this.permissionsToValidate) {
-        let foo = await navigator.permissions.query({ name: permission.name });
-        if (foo.state === 'granted') successfullValidations ++;
-        console.log(foo);
-      }
-
-      if (validationTarget === successfullValidations) {
-        console.log('siuuu');
-      } else {
-        console.log('Acepte los demas permisos');
-      }
-    }
   }));
 
 	Alpine.data('initCamera', () => ({
@@ -173,6 +153,16 @@ document.addEventListener('alpine:init', () => {
           (error) => reject(error)
         );
       });
+    },
+  }));
+
+  Alpine.data('handleIssue', () => ({
+    picture: '',
+    location: '',
+    category: '',
+    step: 0,
+    async sendIssue() {
+      console.log(this.picture, this.location, this.category);
     },
   }));
 
