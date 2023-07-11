@@ -4,14 +4,14 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    public function index()
+    public function capture(): string
     {
         return view('template/header') . 
-            view('welcome_message') .
+            view('capture') .
             view('template/footer');
     }
 
-    public function onboarding()
+    public function onboarding(): string
     {
         return view('onboarding');
     }

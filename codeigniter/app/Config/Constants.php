@@ -94,3 +94,4 @@ define('EVENT_PRIORITY_NORMAL', 100);
 define('EVENT_PRIORITY_HIGH', 10);
 
 define('PATH_TO_VIEW_ASSETS_ONBOARDING', '/assets/img/onboarding/');
+define('PATH_TO_VIEW_ASSETS_SYSTEM', '/assets/img/system/');

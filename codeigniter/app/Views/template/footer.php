@@ -1,6 +1,12 @@
-<nav class="navbar fixed-bottom bg-complementary rounded-pill py-3 mx-4 mb-4">
+<nav 
+  class="navbar fixed-bottom bg-complementary rounded-pill py-3 mx-4 mb-4 animate__animated" 
+  x-data="bottomNavbar"
+  x-show="isShown"
+  x-transition:enter="animate__slideInUp animate__fast"
+  x-transition:leave="animate__slideOutDown animate__fast"
+>
   <div class="container-fluid d-flex justify-content-around align-items-center">
-    <a class="circle-button bg-accent text-white active" href="#">
+    <a class="circle-button bg-accent text-white active" href="#" @click="isShown = !isShown">
       <i class="bi bi-map-fill"></i>
     </a>
     <a class="circle-button bg-accent text-white opacity-75" href="#">

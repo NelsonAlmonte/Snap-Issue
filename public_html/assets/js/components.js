@@ -159,11 +159,41 @@ document.addEventListener('alpine:init', () => {
   Alpine.data('handleIssue', () => ({
     picture: '',
     location: '',
-    category: '',
+    category: 1,
     step: 0,
-    async sendIssue() {
-      console.log(this.picture, this.location, this.category);
+    async saveIssue() {
+      const issue = {
+        category: this.category,
+        picture: this.picture,
+        latitude: this.location.lat,
+        longitude: this.location.long,
+      };
+
+      const payload = {
+        url: '/v1/issue',
+        issue: issue
+      };
+
+      const [response, error] = await useFetch(payload);
+
+      if (response.status === 201)
+        this.step = 2;        
+      else
+        this.step = 3;
+
+      console.log(response, error);
+      getCsrf(response.token);
     },
+    closeModal() {
+      const issueModal = bootstrap.Modal.getInstance(this.$refs.issueModal);
+      issueModal.hide();
+      this.step = 0;
+      this.category = '';
+    }
+  }));
+
+  Alpine.data('bottomNavbar', () => ({
+    isShown: true,
   }));
 
   async function useFetch(payload) {

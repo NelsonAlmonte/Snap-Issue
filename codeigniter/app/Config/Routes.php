@@ -29,8 +29,14 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Home::capture');
 $routes->get('onboarding', 'Home::onboarding');
+
+$routes->group('v1', static function($routes) {
+    $routes->group('issue', static function($routes) {
+        $routes->post('', 'Issue::save');
+    });
+});
 
 /*
  * --------------------------------------------------------------------
