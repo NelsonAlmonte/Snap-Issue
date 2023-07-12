@@ -8873,10 +8873,10 @@ textarea.form-control-lg {
   background-color: rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity)) !important;
 }
 
-.bg-transparent {
+/* .bg-transparent {
   --bs-bg-opacity: 1;
   background-color: transparent !important;
-}
+} */
 
 .bg-body-secondary {
   --bs-bg-opacity: 1;

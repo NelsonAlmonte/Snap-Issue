@@ -184,6 +184,9 @@ document.addEventListener('alpine:init', () => {
       console.log(response, error);
       getCsrf(response.token);
     },
+    selectCategory(el) {
+      console.log(el);
+    },
     closeModal() {
       const issueModal = bootstrap.Modal.getInstance(this.$refs.issueModal);
       issueModal.hide();
@@ -193,7 +196,26 @@ document.addEventListener('alpine:init', () => {
   }));
 
   Alpine.data('bottomNavbar', () => ({
-    isShown: true,
+    navbar: document.querySelector('#bottom-navbar'),
+    init() {
+      const { pathname } = window.location;
+
+      if (pathname === '/' || pathname === '/capture') {
+        this.navbar.classList.add('animate__slideOutDown');
+      } else {
+        this.navbar.classList.add('animate__slideInUp');
+      }
+    },
+    toggle() {
+      const navbarClasses = Array.from(this.navbar.classList);
+      if (navbarClasses.includes('animate__slideOutDown')) {
+        this.navbar.classList.remove('animate__slideOutDown');
+        this.navbar.classList.add('animate__slideInUp');
+      } else {
+        this.navbar.classList.remove('animate__slideInUp');
+        this.navbar.classList.add('animate__slideOutDown');
+      }
+    },
   }));
 
   async function useFetch(payload) {

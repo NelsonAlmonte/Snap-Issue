@@ -26,6 +26,16 @@ body {
   background-color: var(--color-accent);
 }
 
+.bg-transparent {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-color: transparent;
+
+}
+
+/*--------------------------------------------------------------
+# Buttons
+--------------------------------------------------------------*/
+
 .circle-button {
   display: flex;
   justify-content: center;
@@ -35,6 +45,7 @@ body {
   text-align: center;
   border-radius: 100%;
   font-size: 20px;
+  border-color: transparent;
 }
 
 .circle-button-lg {
@@ -46,6 +57,7 @@ body {
   text-align: center;
   border-radius: 100%;
   font-size: 25px;
+  border-color: transparent;
 }
 
 video, .picture {
@@ -82,4 +94,17 @@ video, .picture {
 
 .modal-header-icon i {
   font-size: 32px;
+}
+
+.animate__animated.animate__slideOutDown, .animate__animated.animate__slideInUp {
+  --animate-duration: 0.4s;
+}
+
+.category {
+  transition: all 0.5s;
+}
+
+.category.active {
+  background-color: var(--color-accent);
+  color: #fff;
 }

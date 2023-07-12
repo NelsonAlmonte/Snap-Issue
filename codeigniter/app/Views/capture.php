@@ -1,3 +1,19 @@
+<div class="z-3 d-flex justify-content-between align-items-center position-absolute end-0 start-0 m-4">
+  <a 
+    class="circle-button text-white bg-transparent"
+    href="<?=site_url('onboarding')?>" 
+  >
+    <i class="bi-chevron-left"></i>
+  </a>
+  <div x-data="bottomNavbar">
+    <button 
+      class="circle-button text-white bg-transparent" 
+      @click="toggle"
+    >
+      <i class="bi bi-list"></i>
+    </button>
+  </div>
+</div>
 <div 
   class="d-flex flex-wrap flex-column justify-content-around align-items-center mx-auto" 
   style="height: 100dvh"
@@ -9,21 +25,13 @@
   </div>
   <div class="d-flex justify-content-between align-items-center flex-grow-1" x-data="captureIssue">
     <button 
-      class="btn circle-button-lg bg-accent text-white take-picture" 
+      class="circle-button-lg bg-accent text-white take-picture" 
       data-bs-toggle="modal"
       data-bs-target="#issueModal" 
       @click="captureIssue"
     >
       <i class="bi bi-camera"></i>
     </button>
-    <div x-data="bottomNavbar">
-      <button 
-        class="btn circle-button-lg bg-accent text-white take-picture" 
-        @click="console.log(isShown); isShown = !isShown"
-      >
-        <i class="bi bi-list"></i>
-      </button>
-    </div>
   </div>
 </div>
 
@@ -70,27 +78,42 @@
             <h1 class="fw-bold lh-lg">Tipo de incidencia</h1>
           </div>
           <img class="img-fluid h-auto rounded-2 mb-4" :src="picture">
-          <div class="row g-5">
+          <div class="row g-3">
             <div class="col-6" @click="category = 1">
-              <div class="d-flex flex-column align-items-center justify-content-center bg-complementary p-5 rounded-4">
-                <i class="fi fi-rr-users-alt" style="font-size: 30px;"></i>
-                <h4 class="fw-bold">Vertederos</h4>
+              <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
+                <i class="fi fi-rr-trash" style="font-size: 30px;"></i>
+                <span class="fs-6">Vertedero improvisado</span>
               </div>
             </div>
-            <div class="col-6 bg-complementary p-4" @click="category = 1">
-              <span>Calles en mal estado</span>
+            <div class="col-6" @click="category = 1">
+              <div class="category active d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
+                <i class="fi fi-rr-road" style="font-size: 30px;"></i>
+                <span class="fs-6">Calle en mal estado</span>
+              </div>
             </div>
-            <div class="col-6 bg-complementary p-4" @click="category = 'inundación'">
-              <span>Inundación</span>
+            <div class="col-6" @click="category = 1">
+              <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
+                <i class="fi fi-rr-traffic-light" style="font-size: 30px;"></i>
+                <span class="fs-6">Semaforo averiado</span>
+              </div>
             </div>
-            <div class="col-6 bg-complementary p-4" @click="category = 'semaforo averiado'">
-              <span>Semáforo averiado</span>
+            <div class="col-6" @click="category = 1">
+              <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
+                <i class="fi fi-rr-users-alt" style="font-size: 30px;"></i>
+                <span class="fs-6">Acera en mal estado</span>
+              </div>
             </div>
-            <div class="col-6 bg-complementary p-4" @click="category = 'señal averiada'">
-              <span>Señal averiada</span>
+            <div class="col-6" @click="category = 1">
+              <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
+                <i class="fi fi-rr-house-flood" style="font-size: 30px;"></i>
+                <span class="fs-6">Inundacion</span>
+              </div>
             </div>
-            <div class="col-6 bg-complementary p-4" @click="category = 'acera en mal estado'">
-              <span>Acera en mal estado</span>
+            <div class="col-6" @click="category = 1">
+              <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
+                <i class="fi fi-rr-landmark-alt" style="font-size: 30px;"></i>
+                <span class="fs-6">Monumento en mal estado</span>
+              </div>
             </div>
           </div>
           <div class="d-flex justify-content-center align-content-center w-100">
