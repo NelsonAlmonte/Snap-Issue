@@ -17,7 +17,11 @@ class CreateCategoriesTable extends Migration
             'name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 250
-            ]
+            ],
+            'icon' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100
+            ],
         ]);
         $this->forge->addPrimaryKey('id');
         $this->forge->createTable('categories');

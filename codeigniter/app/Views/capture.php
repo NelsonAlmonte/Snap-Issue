@@ -66,7 +66,10 @@
             <button 
               class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" 
               type="button"
-              @click="step ++"                
+              @click="
+                step ++
+                getCategories()
+              "                
             >Continuar</button>
           </div>
         </div>
@@ -78,43 +81,51 @@
             <h1 class="fw-bold lh-lg">Tipo de incidencia</h1>
           </div>
           <img class="img-fluid h-auto rounded-2 mb-4" :src="picture">
-          <div class="row g-3">
-            <div class="col-6" @click="category = 1">
+          <div class="row g-3" x-ref="categories">
+            <template x-for="category in categories" :key="category.id">
+              <div class="col-6">
+                <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el, category)">
+                  <i :class="category.icon" style="font-size: 30px;"></i>
+                  <span class="fs-6 fw-medium text-capitalize" x-text="category.name"></span>
+                </div>
+              </div>
+            </template>
+            <!-- <div class="col-6">
               <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
                 <i class="fi fi-rr-trash" style="font-size: 30px;"></i>
-                <span class="fs-6">Vertedero improvisado</span>
+                <span class="fs-6 fw-medium">Vertedero improvisado</span>
               </div>
             </div>
-            <div class="col-6" @click="category = 1">
-              <div class="category active d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
+            <div class="col-6">
+              <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
                 <i class="fi fi-rr-road" style="font-size: 30px;"></i>
-                <span class="fs-6">Calle en mal estado</span>
+                <span class="fs-6 fw-medium">Calle en mal estado</span>
               </div>
             </div>
-            <div class="col-6" @click="category = 1">
+            <div class="col-6">
               <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
                 <i class="fi fi-rr-traffic-light" style="font-size: 30px;"></i>
-                <span class="fs-6">Semaforo averiado</span>
+                <span class="fs-6 fw-medium">Semaforo averiado</span>
               </div>
             </div>
-            <div class="col-6" @click="category = 1">
+            <div class="col-6">
               <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
                 <i class="fi fi-rr-users-alt" style="font-size: 30px;"></i>
-                <span class="fs-6">Acera en mal estado</span>
+                <span class="fs-6 fw-medium">Acera en mal estado</span>
               </div>
             </div>
-            <div class="col-6" @click="category = 1">
+            <div class="col-6">
               <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
                 <i class="fi fi-rr-house-flood" style="font-size: 30px;"></i>
-                <span class="fs-6">Inundacion</span>
+                <span class="fs-6 fw-medium">Inundacion</span>
               </div>
             </div>
-            <div class="col-6" @click="category = 1">
+            <div class="col-6">
               <div class="category d-flex flex-column align-items-center justify-content-center bg-complementary w-100 h-100 p-4 rounded-5 text-center" @click="selectCategory($el)">
                 <i class="fi fi-rr-landmark-alt" style="font-size: 30px;"></i>
-                <span class="fs-6">Monumento en mal estado</span>
+                <span class="fs-6 fw-medium">Monumento en mal estado</span>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="d-flex justify-content-center align-content-center w-100">
             <button 

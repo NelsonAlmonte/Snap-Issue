@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class IssueModel extends Model
+class CategoryModel extends Model
 {
     protected $db;
 
@@ -13,11 +13,11 @@ class IssueModel extends Model
         $this->db = \Config\Database::connect();
     }
 
-    public function saveIssue($data)
+    public function getCategories()
     {
-        $this->db
-            ->table('issues')
-            ->insert($data);
-        return $this->db->insertID();
+        return $this->db
+            ->table('categories')
+            ->get()
+            ->getResultArray();
     }
 }

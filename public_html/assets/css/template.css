@@ -101,10 +101,10 @@ video, .picture {
 }
 
 .category {
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 
-.category.active {
+.category.selected {
   background-color: var(--color-accent);
   color: #fff;
 }

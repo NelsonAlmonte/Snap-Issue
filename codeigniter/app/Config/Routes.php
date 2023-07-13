@@ -37,6 +37,9 @@ $routes->group('v1', static function($routes) {
     $routes->group('issue', static function($routes) {
         $routes->post('', 'Issue::save');
     });
+    $routes->group('category', static function($routes) {
+        $routes->get('', 'Category::getCategories');
+    });
 });
 
 /*

@@ -157,10 +157,15 @@ document.addEventListener('alpine:init', () => {
   }));
 
   Alpine.data('handleIssue', () => ({
+    categories: [],
     picture: '',
     location: '',
     category: 1,
     step: 0,
+    statusType: {
+      success: 2,
+      error: 3,
+    },
     async saveIssue() {
       const issue = {
         category: this.category,
@@ -171,27 +176,47 @@ document.addEventListener('alpine:init', () => {
 
       const payload = {
         url: '/v1/issue',
-        issue: issue
+        method: 'POST',
+        data: {
+          issue: issue
+        }
       };
 
       const [response, error] = await useFetch(payload);
 
       if (response.status === 201)
-        this.step = 2;        
+        this.step = this.statusType.success;
       else
-        this.step = 3;
+        this.step = this.statusType.error;
 
       console.log(response, error);
-      getCsrf(response.token);
     },
-    selectCategory(el) {
-      console.log(el);
+    selectCategory(el, category) {
+      const categoriesContainer = Array.from(this.$refs.categories.children);
+      let categories = categoriesContainer.map(category => category.children);
+      categories.shift();
+      categories.forEach(children => children[0] !== el && children[0].classList.remove('selected'));
+      el.classList.toggle('selected');
+      this.category = category.id;
     },
     closeModal() {
       const issueModal = bootstrap.Modal.getInstance(this.$refs.issueModal);
       issueModal.hide();
       this.step = 0;
       this.category = '';
+    },
+    async getCategories() {
+      const payload = {
+        url: '/v1/category',
+        method: 'GET',
+        data: null,
+      };
+
+      const [response, error] = await useFetch(payload);
+
+      if (response.status === 200) {
+        this.categories = response.data;
+      }
     }
   }));
 
@@ -219,18 +244,13 @@ document.addEventListener('alpine:init', () => {
   }));
 
   async function useFetch(payload) {
-		try {
-			const { csrfName, csrfHash } = getCsrf();
-			payload[csrfName] = csrfHash;
+    try {
+      if (payload.method !== 'GET') {
+        const { csrfName, csrfHash } = getCsrf();
+        payload.data[csrfName] = csrfHash;
+      }
 
-			const source = await fetch(payload.url, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-Requested-With': 'XMLHttpRequest',
-				},
-				body: JSON.stringify(payload),
-			});
+			const source = await fetch(buildRequest(payload));
 			const response = await source.json();
 			getCsrf(response.token);
 			return [response, null];
@@ -239,6 +259,22 @@ document.addEventListener('alpine:init', () => {
 			return [null, error];
 		}
 	}
+
+  function buildRequest(params) {
+    return new Request(params.url, {
+      method: params.method,
+      headers: buildHeaders(params.method),
+      body: params.data ? JSON.stringify(params.data) : null
+    });
+  }
+
+  function buildHeaders(method) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    if (method !== 'GET')
+      headers.append('X-Requested-With', 'XMLHttpRequest');
+    return headers;
+  }
 
 	function getCsrf(csrfValue) {
 		const csrfSelector = document.querySelector('.csrf');

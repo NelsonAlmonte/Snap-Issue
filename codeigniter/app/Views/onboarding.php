@@ -106,7 +106,6 @@
       </div>
     </div>
   </main>
-<?=view_cell('BottomNavbar::render')?>
 
   <script src="/assets/js/components.js"></script>
   <script src="/assets/third-party/bootstrap/js/bootstrap.bundle.min.js"></script>
