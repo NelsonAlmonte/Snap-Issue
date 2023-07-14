@@ -100,11 +100,8 @@ video, .picture {
   --animate-duration: 0.4s;
 }
 
-.category {
+.category > input:checked + .selected {
   transition: all 0.3s;
-}
-
-.category.selected {
   background-color: var(--color-accent);
-  color: #fff;
+  color: #fff !important;
 }

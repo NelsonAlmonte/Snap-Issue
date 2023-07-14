@@ -160,7 +160,7 @@ document.addEventListener('alpine:init', () => {
     categories: [],
     picture: '',
     location: '',
-    category: 1,
+    categoryId: '',
     step: 0,
     statusType: {
       success: 2,
@@ -168,7 +168,7 @@ document.addEventListener('alpine:init', () => {
     },
     async saveIssue() {
       const issue = {
-        category: this.category,
+        category: this.categoryId,
         picture: this.picture,
         latitude: this.location.lat,
         longitude: this.location.long,
@@ -190,14 +190,6 @@ document.addEventListener('alpine:init', () => {
         this.step = this.statusType.error;
 
       console.log(response, error);
-    },
-    selectCategory(el, category) {
-      const categoriesContainer = Array.from(this.$refs.categories.children);
-      let categories = categoriesContainer.map(category => category.children);
-      categories.shift();
-      categories.forEach(children => children[0] !== el && children[0].classList.remove('selected'));
-      el.classList.toggle('selected');
-      this.category = category.id;
     },
     closeModal() {
       const issueModal = bootstrap.Modal.getInstance(this.$refs.issueModal);
