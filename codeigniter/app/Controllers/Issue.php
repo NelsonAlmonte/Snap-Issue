@@ -15,15 +15,48 @@ class Issue extends BaseController
     {
         $issueModel = model(IssueModel::class);
         $response = [];
-        $json = $this->request->getJSON(true);
+        $payload = $this->request->getJSON(true);
+        $uploadedPicture = '';
+
+        $uploadedPicture = $this->_uploadPicture($payload['issue']['picture']);
+        if (!empty($uploadedPicture)) {
+            $payload['issue']['picture'] = $uploadedPicture;
+        } else {
+            $response['message'] = 'Error al subir la imagen';
+            $response['status'] = 400;
+            return $this->fail($response);
+        }
         
         $response['token'] = csrf_hash();
         
-        if ($issueModel->saveIssue($json['issue'])) {
+        if ($issueModel->saveIssue($payload['issue'])) {
             $response['status'] = 201;
             return $this->respondCreated($response, 'Su reporte ha sido enviado!');    
         } else {
-            return $this->fail('Error al enviar el reporte');
+            $response['message'] = 'Error al enviar el reporte';
+            $response['status'] = 400;
+            return $this->fail($response);
         }
+    }
+
+    private function _uploadPicture($picture): string
+    {
+        helper('text');
+        $encodedPicture = [];
+        $decodedPicture = '';
+        $pictureExtension = '';
+        $pictureName = '';
+        $uploadedPicture = '';
+
+        $encodedPicture = explode(',', $picture);
+        $decodedPicture = base64_decode($encodedPicture[1]);
+        $pictureExtension = explode('/', $encodedPicture[0]);
+        $pictureExtension = '.' . explode(';', $pictureExtension[1])[0];
+        $pictureName = random_string('alnum', 16) . $pictureExtension;
+
+        if (file_put_contents(PATH_TO_UPLOAD_PICURE . $pictureName, $decodedPicture)) 
+            $uploadedPicture = $pictureName;
+
+        return $uploadedPicture;
     }
 }

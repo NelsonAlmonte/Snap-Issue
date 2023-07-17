@@ -1,9 +1,13 @@
 :root {
   scroll-behavior: smooth;
   /* Template colors */
-  --color-dominant: #F8EDE3; /* %60 */
-  --color-complementary: #BDD2B6; /* %30 */
-  --color-accent: #798777; /* %10 */
+  --color-dominant: hsl(29, 60%, 93%); /* %60 */
+  --color-complementary: hsl(105, 24%, 77%); /* %30 */
+  --color-accent: hsl(113, 6%, 50%); /* %10 */
+
+  --color-dominant-dark: hsl(29, 60%, 83%); /* %60 */
+  --color-complementary-dark: hsl(105, 24%, 67%); /* %30 */
+  --color-accent-dark: hsl(113, 6%, 40%); /* %10 */
 }
 
 body {
@@ -33,6 +37,21 @@ body {
 }
 
 /*--------------------------------------------------------------
+# Background
+--------------------------------------------------------------*/
+.text-dominant {
+  color: var(--color-dominant);
+}
+
+.text-complementary {
+  color: var(--color-complementary);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+/*--------------------------------------------------------------
 # Buttons
 --------------------------------------------------------------*/
 
@@ -58,6 +77,12 @@ body {
   border-radius: 100%;
   font-size: 25px;
   border-color: transparent;
+}
+
+.action-button:disabled, .action-button.disabled {
+  pointer-events: none;
+  background-color: var(--color-accent-dark);
+  opacity: 0.65;
 }
 
 video, .picture {

@@ -19,13 +19,23 @@
   style="height: 100dvh"
   x-data="initCamera"
 >
+  <template x-if="!isCameraOn">
+    <div class="d-flex justify-content-center">
+      <div class="text-center">
+        <div class="spinner-grow text-accent" role="status" style="width: 5rem; height: 5rem;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <h5 class="fw-bold">Iniciando cámara...</h5>
+      </div>
+    </div>
+  </template>
   <div>
     <video class="rounded-bottom-5" autoplay x-ref="video"></video>
     <canvas class="d-none" x-ref="canvas"></canvas>
   </div>
   <div class="d-flex justify-content-between align-items-center flex-grow-1" x-data="captureIssue">
     <button 
-      class="circle-button-lg bg-accent text-white take-picture" 
+      class="circle-button-lg btn-action bg-accent text-white take-picture"
       data-bs-toggle="modal"
       data-bs-target="#issueModal" 
       @click="captureIssue"

@@ -69,6 +69,7 @@ document.addEventListener('alpine:init', () => {
   }));
 
 	Alpine.data('initCamera', () => ({
+    isCameraOn: false,
     initialConstraints: {
       video: {
         width: {
@@ -108,6 +109,7 @@ document.addEventListener('alpine:init', () => {
         updatedConstraints
       );
       this.$refs.video.srcObject = stream;
+      this.isCameraOn = true;
     },
     async getDeviceId() {
       const devices = await navigator.mediaDevices.enumerateDevices();
@@ -195,7 +197,6 @@ document.addEventListener('alpine:init', () => {
       const issueModal = bootstrap.Modal.getInstance(this.$refs.issueModal);
       issueModal.hide();
       this.step = 0;
-      this.category = '';
     },
     async getCategories() {
       const payload = {
@@ -217,11 +218,10 @@ document.addEventListener('alpine:init', () => {
     init() {
       const { pathname } = window.location;
 
-      if (pathname === '/' || pathname === '/capture') {
+      if (pathname === '/' || pathname === '/capture')
         this.navbar.classList.add('animate__slideOutDown');
-      } else {
+      else
         this.navbar.classList.add('animate__slideInUp');
-      }
     },
     toggle() {
       const navbarClasses = Array.from(this.navbar.classList);

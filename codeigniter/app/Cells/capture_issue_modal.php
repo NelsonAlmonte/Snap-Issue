@@ -21,13 +21,13 @@
           <img class="picture rounded-2" :src="picture">
           <div class="d-flex justify-content-center align-content-center w-100">
             <button 
-              class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 me-2 py-3" 
+              class="btn rounded-pill bg-accent text-white fw-bold w-100 mt-4 me-2 py-3" 
               type="button"
               data-bs-dismiss="modal" 
               aria-label="Close"
             >Retomar</button>
             <button 
-              class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" 
+              class="btn rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" 
               type="button"
               @click="
                 step ++
@@ -45,6 +45,16 @@
           </div>
           <img class="img-fluid h-auto rounded-2 mb-4" :src="picture">
           <div class="row g-4">
+            <template x-if="!categories.length">
+              <div class="d-flex justify-content-center">
+                <div class="text-center">
+                  <div class="spinner-grow text-accent" role="status" style="width: 5rem; height: 5rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <h5 class="fw-bold">Cargando categorias...</h5>
+                </div>
+              </div>
+            </template>
             <template x-for="category in categories" :key="category.id">
               <div class="col-6" x-id="['text-input']">
                 <label 
@@ -70,12 +80,13 @@
           </div>
           <div class="d-flex justify-content-center align-content-center w-100">
             <button 
-              class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 me-2 py-3" 
+              class="btn action-button rounded-pill bg-accent text-white fw-bold w-100 mt-4 me-2 py-3" 
               type="button"
               @click="step --"
             >Regresar</button>
             <button 
-              class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" 
+              class="btn action-button rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3"
+              :class="categoryId === '' ? 'disabled' : ''"
               type="button"
               @click="saveIssue"                
             >Enviar</button>
@@ -92,7 +103,7 @@
             <h4 class="text-secondary lh-base">Su reporte ha sido recibido y esta siendo procesado por las autoridades de su comunidad.</h4>
           </div>
           <img class="img-fluid" src="<?=PATH_TO_VIEW_ASSETS_ONBOARDING?>ready.svg" alt="ready">
-          <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button"
+          <button class="btn rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button"
             @click="closeModal">Continuar</button>
         </div>
         <div 
@@ -106,7 +117,7 @@
             <h4 class="text-secondary lh-base">Algo ha salido mal al enviar el reporte, actualiza o cierra y abre la app nuevamente.</h4>
           </div>
           <img class="img-fluid" src="<?=PATH_TO_VIEW_ASSETS_SYSTEM?>error.svg" alt="error">
-          <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button"
+          <button class="btn rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button"
             @click="document.location.reload()">Continuar</button>
         </div>
       </div>
