@@ -8,7 +8,7 @@ class BottomNavbar extends Cell
 {
     protected $links = [
         [
-            'url'     => '#',
+            'url'     => 'map',
             'icon'     => 'bi-map-fill',
             'isActive' => false,
         ],

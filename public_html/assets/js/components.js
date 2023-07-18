@@ -235,6 +235,47 @@ document.addEventListener('alpine:init', () => {
     },
   }));
 
+  Alpine.data('initMap', () => ({
+    map: '',
+    async init() {
+      this.buildMap();
+      await this.placeMarkers();
+    },
+    buildMap() {
+      const map = L.map('map', { 
+        zoomControl: false,
+        zoomAnimation: false,
+      }).fitWorld();
+  
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+  
+      map.locate({ setView: true, maxZoom: 16 });
+  
+      this.map = map;
+    },
+    async placeMarkers() {
+      let issues = [];
+      const payload = {
+        url: '/v1/issue',
+        method: 'GET',
+        data: null,
+      };
+
+      const [response, error] = await useFetch(payload);
+
+      if (response.status === 200) {
+        issues = response.data;
+        const markers = L.markerClusterGroup({ maxClusterRadius: 200 });
+        for (const iterator of issues) {
+          markers.addLayer(L.marker([ iterator.latitude, iterator.longitude ]));
+        }
+        this.map.addLayer(markers);
+      }
+    }
+  }));
+
   async function useFetch(payload) {
     try {
       if (payload.method !== 'GET') {

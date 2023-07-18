@@ -1,5 +1,5 @@
 <nav 
-  class="navbar fixed-bottom bg-complementary rounded-pill py-3 mx-4 mb-4 animate__animated animate__fast"
+  class="navbar fixed-bottom bg-complementary rounded-pill py-3 mx-4 mb-4 z-3 animate__animated animate__fast"
   id="bottom-navbar"
   x-data="bottomNavbar"
 >

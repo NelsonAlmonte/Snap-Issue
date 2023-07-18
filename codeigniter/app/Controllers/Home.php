@@ -11,6 +11,13 @@ class Home extends BaseController
             view('template/footer');
     }
 
+    public function map(): string
+    {
+        return view('template/header') . 
+            view('map') .
+            view('template/footer');
+    }
+
     public function onboarding(): string
     {
         return view('onboarding');

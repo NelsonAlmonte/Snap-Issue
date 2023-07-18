@@ -59,4 +59,22 @@ class Issue extends BaseController
 
         return $uploadedPicture;
     }
+
+    public function getIssues()
+    {
+        $issueModel = model(IssueModel::class);
+        $response = [];
+
+        $response['token'] = csrf_hash();
+
+        try {
+            $response['data'] = $issueModel->getIssues();
+            $response['status'] = 200;
+            return $this->respond($response);
+        } catch (\Throwable $th) {
+            $response['message'] = 'Error al recibir las incidencias';
+            $response['status'] = 400;
+            return $this->fail($response);
+        }
+    }
 }

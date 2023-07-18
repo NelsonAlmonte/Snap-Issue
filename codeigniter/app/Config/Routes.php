@@ -32,10 +32,12 @@ $routes->set404Override();
 $routes->get('/', 'Home::capture');
 $routes->get('capture', 'Home::capture');
 $routes->get('onboarding', 'Home::onboarding');
+$routes->get('map', 'Home::map');
 
 $routes->group('v1', static function($routes) {
     $routes->group('issue', static function($routes) {
         $routes->post('', 'Issue::save');
+        $routes->get('', 'Issue::getIssues');
     });
     $routes->group('category', static function($routes) {
         $routes->get('', 'Category::getCategories');

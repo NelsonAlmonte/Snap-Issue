@@ -20,4 +20,12 @@ class IssueModel extends Model
             ->insert($data);
         return $this->db->insertID();
     }
+
+    public function getIssues()
+    {
+        return $this->db
+            ->table('issues')
+            ->get()
+            ->getResultArray();
+    }
 }
