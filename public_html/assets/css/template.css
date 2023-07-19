@@ -130,3 +130,35 @@ video, .picture {
   background-color: var(--color-accent);
   color: #fff !important;
 }
+
+.issue-marker {
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 50% 0;
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -15px 0 0 -15px;
+  background-color: var(--color-complementary);
+}
+
+.issue-marker::after {
+  content: '';
+  width: 30px;
+  height: 30px;
+  margin: 5px 0 0 5px;
+  background: var(--color-accent);
+  position: absolute;
+  border-radius: 50%;
+}
+
+.issue-marker-wrapper i {
+  position: absolute;
+  font-size: 16px;
+  left: 0;
+  right: 0;
+  margin: 17px;
+  text-align: center;
+  color: #fff;
+}

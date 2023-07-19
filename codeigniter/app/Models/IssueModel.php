@@ -24,7 +24,9 @@ class IssueModel extends Model
     public function getIssues()
     {
         return $this->db
-            ->table('issues')
+            ->table('issues i')
+            ->select('i.*, c.name AS category_name, c.icon AS category_icon')
+            ->join('categories c', 'c.id = i.category')
             ->get()
             ->getResultArray();
     }
