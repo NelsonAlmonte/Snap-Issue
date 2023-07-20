@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/assets/third-party/leaflet/leaflet.css">
   <link rel="stylesheet" href="/assets/third-party/leaflet/marker-cluster/MarkerCluster.css">
   <link rel="stylesheet" href="/assets/third-party/leaflet/marker-cluster/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="/assets/third-party/glightbox/glightbox.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
   <link rel="stylesheet" href="/assets/css/template.css">

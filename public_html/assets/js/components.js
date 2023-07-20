@@ -236,7 +236,8 @@ document.addEventListener('alpine:init', () => {
 
 	Alpine.data('initMap', () => ({
 		map: '',
-    isLoading: true,
+		issue: '',
+		isLoading: true,
 		init() {
 			this.buildMap();
 			this.placeMarkers();
@@ -271,44 +272,60 @@ document.addEventListener('alpine:init', () => {
 				console.log(issues);
 				const markers = L.markerClusterGroup({ maxClusterRadius: 200 });
 				for (const issue of issues) {
-          const marker = this.addIssueMarker(issue);
+					const marker = this.addIssueMarker(issue);
 					markers.addLayer(marker);
 				}
 				this.map.addLayer(markers);
 			}
 		},
-    addIssueMarker(issue) {
-      const icon = L.divIcon({
-        className: 'issue-marker-wrapper',
-        html: `
+		addIssueMarker(issue) {
+			const icon = L.divIcon({
+				className: 'issue-marker-wrapper',
+				html: `
           <div class="issue-marker shadow-lg"></div>
           <i class="${issue.category_icon}"></i>
         `,
-        iconSize: [40, 42],
-      });
+				iconSize: [40, 42],
+			});
 
-      const marker = L.marker([issue.latitude, issue.longitude], {
-        icon: icon,
-      });
+			const marker = L.marker([issue.latitude, issue.longitude], {
+				icon: icon,
+			});
 
-      marker.on('click', async (e) => {
-        const issueModal = bootstrap.Modal.getOrCreateInstance('#issueInfo');
-        issueModal.show();
-        
-        const { lat, lng } = e.latlng;
-        const payload = {
-          url: `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`,
-          method: 'GET',
-          data: null,
-        };
-        const [response, error] = await useFetch(payload);
+			marker.on('click', async (e) => {
+				const issueModalRef = this.$refs.issueModal;
+				const issueModal = bootstrap.Modal.getOrCreateInstance(issueModalRef);
+				const picturePath = issueModalRef.dataset.picturePath;
+				issueModal.show();
+				const { lat, lng } = e.latlng;
+				const payload = {
+					url: `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`,
+					method: 'GET',
+					data: null,
+				};
+				const [response, error] = await useFetch(payload);
+				if (response) {
+					this.isLoading = false;
+					this.issue = issue;
+					this.issue.picture_full_path = picturePath + this.issue.picture;
+					this.$refs.foo.href = 'http://localhost:8080' + picturePath + this.issue.picture;
+					this.issue.address = response.display_name
+						.split(',')
+						.slice(0, response.display_name.split(',').length - 2);
+					this.issue.relative_date = getRelativeTimeString(
+						this.issue.created_date,
+						'es-ES'
+					);
+				}
 
-        if (response) this.isLoading = false;
-        issueModal.addEventListener('hidden.bs.modal', () => this.isLoading = true);
-      });
+				issueModalRef.addEventListener('hidden.bs.modal', () => {
+					this.isLoading = true;
+					this.issue = '';
+				});
+			});
 
-      return marker;
-    },
+			return marker;
+		},
 	}));
 
 	async function useFetch(payload) {
@@ -350,4 +367,41 @@ document.addEventListener('alpine:init', () => {
 		const csrfHash = csrfSelector.value;
 		return { csrfName: csrfName, csrfHash: csrfHash };
 	}
+
+	/**
+	 * Convert a date to a relative time string, such as
+	 * "a minute ago", "in 2 hours", "yesterday", "3 months ago", etc.
+	 * using Intl.RelativeTimeFormat
+	 * https://www.builder.io/blog/relative-time
+	 */
+	function getRelativeTimeString(unparsedDate, lang) {
+		let date = unparsedDate.replace(/[-]/g, '/');
+		date = Date.parse(date);
+		date = new Date(date);
+
+		const timeMs = typeof date === 'number' ? date : date.getTime();
+		const deltaSeconds = Math.round((timeMs - Date.now()) / 1000);
+		const cutoffs = [
+			60,
+			3600,
+			86400,
+			86400 * 7,
+			86400 * 30,
+			86400 * 365,
+			Infinity,
+		];
+		const units = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year'];
+		const unitIndex = cutoffs.findIndex(
+			(cutoff) => cutoff > Math.abs(deltaSeconds)
+		);
+		const divisor = unitIndex ? cutoffs[unitIndex - 1] : 1;
+		const rtf = new Intl.RelativeTimeFormat(lang, { numeric: 'auto' });
+		return rtf.format(Math.floor(deltaSeconds / divisor), units[unitIndex]);
+	}
+
+	const lightbox = GLightbox({
+		selector: '.glightbox',
+		width: 1200,
+		height: 900,
+	});
 });
