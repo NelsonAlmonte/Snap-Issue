@@ -269,7 +269,6 @@ document.addEventListener('alpine:init', () => {
 
 			if (response.status === 200) {
 				issues = response.data;
-				console.log(issues);
 				const markers = L.markerClusterGroup({ maxClusterRadius: 200 });
 				for (const issue of issues) {
 					const marker = this.addIssueMarker(issue);
@@ -304,11 +303,11 @@ document.addEventListener('alpine:init', () => {
 					data: null,
 				};
 				const [response, error] = await useFetch(payload);
+				
 				if (response) {
 					this.isLoading = false;
 					this.issue = issue;
 					this.issue.picture_full_path = picturePath + this.issue.picture;
-					this.$refs.foo.href = 'http://localhost:8080' + picturePath + this.issue.picture;
 					this.issue.address = response.display_name
 						.split(',')
 						.slice(0, response.display_name.split(',').length - 2);

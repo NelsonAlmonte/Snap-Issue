@@ -31,8 +31,7 @@
             </button>
             <a 
               class="circle-button text-white bg-transparent glightbox"
-              href="#"
-              x-ref="foo"
+              :href="issue.picture_full_path"
             >
               <i class="bi bi-fullscreen"></i>
             </a>
