@@ -97,5 +97,11 @@ define('EVENT_PRIORITY_HIGH', 10);
 define('PATH_TO_VIEW_ASSETS_ONBOARDING', '/assets/img/onboarding/');
 define('PATH_TO_VIEW_ASSETS_SYSTEM', '/assets/img/system/');
 define('PATH_TO_VIEW_UPLOAD_PICTURE', '/uploads/issues-pictures/');
+define('PATH_TO_VIEW_PROFILE_IMAGE', '/uploads/profile-image/');
 // Uploads
 define('PATH_TO_UPLOAD_PICURE', ROOTPATH . '../public_html/uploads/issues-pictures/');
+define('PATH_TO_UPLOAD_PROFILE_IMAGE', ROOTPATH . '../public_html/uploads/profile-image/');
+// Assets
+define('DEFAULT_PROFILE_IMAGE', 'default-profile-image.png');
+// Auth
+define('DEFAULT_USER_ROLE_ID', 2);

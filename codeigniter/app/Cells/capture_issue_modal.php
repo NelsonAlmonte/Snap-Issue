@@ -5,7 +5,10 @@
   aria-labelledby="issueModalLabel" 
   aria-hidden="true"
   x-data="handleIssue"
-  @issue.window="picture = $event.detail.picture; location = $event.detail.location"
+  @issue.window="
+    picture  = $event.detail.picture; 
+    location = $event.detail.location;
+    reporter = $event.detail.reporter;"
   x-ref="issueModal"
 >
   <div class="modal-dialog modal-dialog-centered modal-fullscreen">

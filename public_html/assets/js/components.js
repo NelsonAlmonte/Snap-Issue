@@ -125,6 +125,7 @@ document.addEventListener('alpine:init', () => {
 		video: '',
 		picture: '',
 		location: '',
+		reporter: '',
 		init() {
 			this.canvas = this.$refs.canvas;
 			this.video = this.$refs.video;
@@ -132,9 +133,11 @@ document.addEventListener('alpine:init', () => {
 		async captureIssue() {
 			this.picture = this.takePicture();
 			this.location = await this.getLocation();
+			this.reporter = await this.getLoggedUser();
 			this.$dispatch('issue', {
 				picture: this.picture,
 				location: this.location,
+				reporter: this.reporter,
 			});
 		},
 		takePicture() {
@@ -158,12 +161,24 @@ document.addEventListener('alpine:init', () => {
 				);
 			});
 		},
+		async getLoggedUser() {
+			const payload = {
+				url: '/v1/user/getUser',
+				method: 'GET',
+				data: null,
+			};
+
+			const [response, error] = await useFetch(payload);
+
+			if (response.status === 200) return response.data.id;
+		},
 	}));
 
 	Alpine.data('handleIssue', () => ({
 		categories: [],
 		picture: '',
 		location: '',
+		reporter: '',
 		categoryId: '',
 		step: 0,
 		statusType: {
@@ -176,6 +191,7 @@ document.addEventListener('alpine:init', () => {
 				picture: this.picture,
 				latitude: this.location.lat,
 				longitude: this.location.long,
+				reporter: this.reporter,
 			};
 
 			const payload = {
@@ -237,6 +253,7 @@ document.addEventListener('alpine:init', () => {
 	Alpine.data('initMap', () => ({
 		map: '',
 		issue: '',
+		reporter: '',
 		isLoading: true,
 		init() {
 			this.buildMap();
@@ -295,6 +312,7 @@ document.addEventListener('alpine:init', () => {
 				const issueModalRef = this.$refs.issueModal;
 				const issueModal = bootstrap.Modal.getOrCreateInstance(issueModalRef);
 				const picturePath = issueModalRef.dataset.picturePath;
+				const profileImagePath = issueModalRef.dataset.profileImagePath;
 				issueModal.show();
 				const { lat, lng } = e.latlng;
 				const payload = {
@@ -303,28 +321,45 @@ document.addEventListener('alpine:init', () => {
 					data: null,
 				};
 				const [response, error] = await useFetch(payload);
-				
+
 				if (response) {
-					this.isLoading = false;
 					this.issue = issue;
-					this.issue.picture_full_path = picturePath + this.issue.picture;
+					this.issue.pictureFullPath = picturePath + this.issue.picture;
 					this.issue.address = response.display_name
 						.split(',')
 						.slice(0, response.display_name.split(',').length - 2);
-					this.issue.relative_date = getRelativeTimeString(
+					this.issue.relativeDate = getRelativeTimeString(
 						this.issue.created_date,
 						'es-ES'
 					);
+					
+					const reporter = await this.getIssueReporter(this.issue.reporter);
+					this.reporter = reporter;
+					this.reporter.fullName = `${this.reporter.name} ${this.reporter.last}`
+					this.reporter.profileImage = profileImagePath + this.reporter.image;
+					this.isLoading = false;
 				}
 
 				issueModalRef.addEventListener('hidden.bs.modal', () => {
 					this.isLoading = true;
 					this.issue = '';
+					this.reporter = '';
 				});
 			});
 
 			return marker;
 		},
+		async getIssueReporter(reporter) {
+			const payload = {
+				url: `/v1/user/getUser?id=${reporter}`,
+				method: 'GET',
+				data: null,
+			};
+
+			const [response, error] = await useFetch(payload);
+
+			if (response.status === 200) return response.data;
+		}
 	}));
 
 	async function useFetch(payload) {

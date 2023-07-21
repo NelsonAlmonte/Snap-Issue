@@ -5,6 +5,7 @@
   aria-labelledby="issueInfoLabel" 
   aria-hidden="true"
   data-picture-path="<?=PATH_TO_VIEW_UPLOAD_PICTURE?>"
+  data-profile-image-path="<?=PATH_TO_VIEW_PROFILE_IMAGE?>"
   x-ref="issueModal"
 >
   <div class="modal-dialog modal-dialog-centered">
@@ -31,17 +32,23 @@
             </button>
             <a 
               class="circle-button text-white bg-transparent glightbox"
-              :href="issue.picture_full_path"
+              :href="issue.pictureFullPath"
             >
               <i class="bi bi-fullscreen"></i>
             </a>
           </div>
           <img class="img-fluid rounded-top-5"
-            :src="issue.picture_full_path" alt="foo">
+            :src="issue.pictureFullPath" alt="foo">
           <div class="p-4">
-            <span class="fw-medium small text-secondary" x-text="issue.relative_date"></span>
             <h3 class="fw-bold mb-3" x-text="issue.category_name"></h3>
             <span class="fw-medium text-secondary" x-text="issue.address"></span>
+            <div class="d-flex justify-content-start align-items-center mt-4">
+              <img style="width: 50px; height: 50px" class="rounded-circle" :src="reporter.profileImage" alt="foo">
+              <div class="row ms-1">
+                <span class="fw-bold" x-text="reporter.fullName"></span>
+                <span class="fw-medium small text-secondary" x-text="issue.relativeDate"></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
