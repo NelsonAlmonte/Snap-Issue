@@ -102,8 +102,9 @@
           <h4 class="text-secondary lh-base">Todo esta listo para que puedas empezar a ser escuchado.</h4>
         </div>
         <img class="img-fluid" src="<?=PATH_TO_VIEW_ASSETS_ONBOARDING?>ready.svg" alt="welcome">
-        <a class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button" href="<?=site_url('capture');?>">Continuar</a>
+        <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button" @click="completeOnboarding">Continuar</button>
       </div>
+      <input class="csrf" type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
     </div>
   </main>
 

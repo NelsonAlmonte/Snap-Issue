@@ -34,7 +34,7 @@ $routes->group('/', ['filter' => 'isloggedin'], static function($routes) {
     $routes->get('map', 'Home::map');
     $routes->get('onboarding', 'Home::onboarding');
 });
-$routes->get('/', 'Home::capture');
+$routes->get('/', 'Home::capture', ['filter' => 'isloggedin']);
 
 $routes->group('auth', static function($routes) {
     $routes->get('login', 'Auth::login');
@@ -54,6 +54,7 @@ $routes->group('v1', static function($routes) {
     });
     $routes->group('user', static function($routes) {
         $routes->get('getUser', 'User::getUser');
+        $routes->put('', 'User::updateUser');
     });
 });
 

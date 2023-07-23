@@ -65,6 +65,37 @@ document.addEventListener('alpine:init', () => {
 				);
 			});
 		},
+		async completeOnboarding() {
+			const user = {
+				id: await this.getLoggedUser(),
+				is_profile_setup: 1,
+			};
+
+			const payload = {
+				url: '/v1/user',
+				method: 'PUT',
+				data: {
+					user: user,
+				},
+			};
+
+			const [response, error] = await useFetch(payload);
+
+			console.log(response, error);
+			// if (response.status === 201) this.step = this.statusType.success;
+			// else this.step = this.statusType.error;
+		},
+		async getLoggedUser() {
+			const payload = {
+				url: '/v1/user/getUser',
+				method: 'GET',
+				data: null,
+			};
+
+			const [response, error] = await useFetch(payload);
+
+			if (response.status === 200) return response.data.id;
+		},
 	}));
 
 	Alpine.data('initCamera', () => ({
@@ -157,7 +188,8 @@ document.addEventListener('alpine:init', () => {
 			return new Promise((resolve, reject) => {
 				navigator.geolocation.getCurrentPosition(
 					(position) => resolve(position),
-					(error) => reject(error)
+					(error) => reject(error),
+					{ enableHighAccuracy: true }
 				);
 			});
 		},

@@ -29,8 +29,27 @@ class User extends BaseController
             $response['data'] = $userModel->getUser($value, $field);
             $response['status'] = 200;
             return $this->respond($response);
-        } catch (\Throwable $th) {
-            $response['message'] = 'Error al recibir el usuario';
+        } catch (\Exception $e) {
+            $response['message'] = $e->getMessage();
+            $response['status'] = 400;
+            return $this->fail($response);
+        }
+    }
+
+    public function updateUser()
+    {
+        $userModel = model(UserModel::class);
+        $payload = $this->request->getJSON(true);
+        $response = [];
+
+        $response['token'] = csrf_hash();
+
+        try {
+            $userModel->updateUser($payload['user']);
+            $response['status'] = 200;
+            return $this->respondUpdated($response, 'Usuario actualizado!');
+        } catch (\Exception $e) {
+            $response['message'] = $e->getMessage();
             $response['status'] = 400;
             return $this->fail($response);
         }

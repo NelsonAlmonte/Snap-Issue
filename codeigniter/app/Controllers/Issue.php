@@ -28,12 +28,13 @@ class Issue extends BaseController
         }
         
         $response['token'] = csrf_hash();
-        
-        if ($issueModel->saveIssue($payload['issue'])) {
+
+        try {
+            $issueModel->saveIssue($payload['issue']);
             $response['status'] = 201;
-            return $this->respondCreated($response, 'Su reporte ha sido enviado!');    
-        } else {
-            $response['message'] = 'Error al enviar el reporte';
+            return $this->respondCreated($response, 'Su reporte ha sido enviado!');
+        } catch (\Exception $e) {
+            $response['message'] = $e->getMessage();
             $response['status'] = 400;
             return $this->fail($response);
         }
@@ -60,7 +61,7 @@ class Issue extends BaseController
         return $uploadedPicture;
     }
 
-    public function getIssues()
+    public function getIssues(): ResponseInterface
     {
         $issueModel = model(IssueModel::class);
         $response = [];
@@ -71,8 +72,8 @@ class Issue extends BaseController
             $response['data'] = $issueModel->getIssues();
             $response['status'] = 200;
             return $this->respond($response);
-        } catch (\Throwable $th) {
-            $response['message'] = 'Error al recibir las incidencias';
+        } catch (\Exception $e) {
+            $response['message'] = $e->getMessage();
             $response['status'] = 400;
             return $this->fail($response);
         }

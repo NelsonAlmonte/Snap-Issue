@@ -71,6 +71,7 @@ public_html/uploads/issues-pictures/*
 !public_html/uploads/profile-image
 public_html/uploads/profile-image/*
 !public_html/uploads/profile-image/.gitkeep
+!public_html/uploads/profile-image/default-profile-image.png
 
 codeigniter/writable/debugbar/*
 codeigniter/!writable/debugbar/.gitkeep
