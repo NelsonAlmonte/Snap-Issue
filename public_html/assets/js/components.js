@@ -82,8 +82,7 @@ document.addEventListener('alpine:init', () => {
 			const [response, error] = await useFetch(payload);
 
 			console.log(response, error);
-			// if (response.status === 201) this.step = this.statusType.success;
-			// else this.step = this.statusType.error;
+			window.location.replace('/capture');
 		},
 		async getLoggedUser() {
 			const payload = {
