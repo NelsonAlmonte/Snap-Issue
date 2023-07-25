@@ -18,8 +18,8 @@ class BottomNavbar extends Cell
             'isActive' => false,
         ],
         [
-            'url'     => 'onboarding',
-            'icon'     => 'bi-gear-fill',
+            'url'     => 'profile',
+            'icon'     => 'bi-person-fill',
             'isActive' => false,
         ],
     ];
@@ -34,6 +34,7 @@ class BottomNavbar extends Cell
                     $this->links[$key]['isActive'] = true;
             }
         }
+        $this->links[2]['url'] = 'profile/' . session()->get('id');
     }
 
     public function render(): string

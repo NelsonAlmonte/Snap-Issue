@@ -54,4 +54,12 @@ class User extends BaseController
             return $this->fail($response);
         }
     }
+
+    public function profile(): string
+    {
+        
+        return view('template/header') . 
+            view('user/profile') .
+            view('template/footer');
+    }
 }

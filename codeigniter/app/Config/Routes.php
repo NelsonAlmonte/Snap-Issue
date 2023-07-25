@@ -33,6 +33,7 @@ $routes->group('/', ['filter' => 'isloggedin'], static function($routes) {
     $routes->get('capture', 'Home::capture');
     $routes->get('map', 'Home::map');
     $routes->get('onboarding', 'Home::onboarding');
+    $routes->get('profile/(:num)', 'User::profile/$1');
 });
 $routes->get('/', 'Home::capture', ['filter' => 'isloggedin']);
 
