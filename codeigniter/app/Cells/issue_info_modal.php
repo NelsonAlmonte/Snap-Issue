@@ -37,13 +37,13 @@
               <i class="bi bi-fullscreen"></i>
             </a>
           </div>
-          <img class="img-fluid rounded-top-5"
-            :src="issue.pictureFullPath" alt="foo">
+          <div class="issue-info-image-wrapper">
+            <div :style="`background-image: url('${issue.pictureFullPath}')`" class="issue-info-image cover"></div>
+          </div>
           <div class="p-4">
             <h3 class="fw-bold mb-3" x-text="issue.category_name"></h3>
-            <span class="fw-medium text-secondary" x-text="issue.address"></span>
             <div class="d-flex justify-content-start align-items-center mt-4">
-              <img style="width: 50px; height: 50px" class="rounded-circle" :src="reporter.profileImage" alt="foo">
+              <img class="issue-info-user-image rounded-circle" :src="reporter.profileImage" alt="foo">
               <div class="row ms-1">
                 <span class="fw-bold" x-text="reporter.fullName"></span>
                 <span class="fw-medium small text-secondary" x-text="issue.relativeDate"></span>

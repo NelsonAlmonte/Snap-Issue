@@ -202,7 +202,7 @@ document.addEventListener('alpine:init', () => {
 			const [response, error] = await useFetch(payload);
 
 			if (response.status === 200) return response.data.id;
-		},
+		}
 	}));
 
 	Alpine.data('handleIssue', () => ({
@@ -262,13 +262,13 @@ document.addEventListener('alpine:init', () => {
 
 	Alpine.data('bottomNavbar', () => ({
 		navbar: document.querySelector('#bottom-navbar'),
-		init() {
-			const { pathname } = window.location;
+		// init() {
+		// 	const { pathname } = window.location;
 
-			if (pathname === '/' || pathname === '/capture')
-				this.navbar.classList.add('animate__slideOutDown');
-			else this.navbar.classList.add('animate__slideInUp');
-		},
+		// 	if (pathname === '/' || pathname === '/capture')
+		// 		this.navbar.classList.add('animate__slideOutDown');
+		// 	else this.navbar.classList.add('animate__slideInUp');
+		// },
 		toggle() {
 			const navbarClasses = Array.from(this.navbar.classList);
 			if (navbarClasses.includes('animate__slideOutDown')) {
@@ -346,30 +346,24 @@ document.addEventListener('alpine:init', () => {
 				const profileImagePath = issueModalRef.dataset.profileImagePath;
 				issueModal.show();
 				const { lat, lng } = e.latlng;
-				const payload = {
-					url: `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`,
-					method: 'GET',
-					data: null,
-				};
-				const [response, error] = await useFetch(payload);
 
-				if (response) {
-					this.issue = issue;
-					this.issue.pictureFullPath = picturePath + this.issue.picture;
-					this.issue.address = response.display_name
-						.split(',')
-						.slice(0, response.display_name.split(',').length - 2);
-					this.issue.relativeDate = getRelativeTimeString(
-						this.issue.created_date,
-						'es-ES'
-					);
-					
-					const reporter = await this.getIssueReporter(this.issue.reporter);
-					this.reporter = reporter;
-					this.reporter.fullName = `${this.reporter.name} ${this.reporter.last}`
-					this.reporter.profileImage = profileImagePath + this.reporter.image;
-					this.isLoading = false;
-				}
+				this.issue = issue;
+				this.issue.pictureFullPath = picturePath + this.issue.picture;
+				this.issue.relativeDate = getRelativeTimeString(
+					this.issue.created_date,
+					'es-ES'
+				);
+				const reporter = await this.getIssueReporter(this.issue.reporter);
+				this.reporter = reporter;
+				this.reporter.fullName = `${this.reporter.name} ${this.reporter.last}`;
+				this.reporter.profileImage = profileImagePath + this.reporter.image;
+
+				// const issueDisplayAddress = await this.getIssueDisplayAddress(lat, lng);
+				// this.issue.address = issueDisplayAddress.display_name
+				// 	.split(',')
+				// 	.slice(0, issueDisplayAddress.display_name.split(',').length - 2);
+
+				if (reporter) this.isLoading = false;
 
 				issueModalRef.addEventListener('hidden.bs.modal', () => {
 					this.isLoading = true;
@@ -390,7 +384,18 @@ document.addEventListener('alpine:init', () => {
 			const [response, error] = await useFetch(payload);
 
 			if (response.status === 200) return response.data;
-		}
+		},
+		// async getIssueDisplayAddress(lat, lng) {
+		// 	const payload = {
+		// 		url: `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`,
+		// 		method: 'GET',
+		// 		data: null,
+		// 	};
+		// 	const [response, error] = await useFetch(payload);
+
+		// 	if (response) return response;
+		// 	else return error;
+		// },
 	}));
 
 	async function useFetch(payload) {

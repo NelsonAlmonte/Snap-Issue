@@ -21,7 +21,7 @@
           <div class="text-center mb-2">
             <h1 class="fw-bold lh-lg">Fotografía de la incidencia</h1>
           </div>
-          <img class="picture rounded-2" :src="picture">
+          <img class="rounded-2 w-100 object-fit-cover" :src="picture" style="height: 80vh;">
           <div class="d-flex justify-content-center align-content-center w-100">
             <button 
               class="btn rounded-pill bg-accent text-white fw-bold w-100 mt-4 me-2 py-3" 

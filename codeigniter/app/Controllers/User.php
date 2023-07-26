@@ -5,12 +5,13 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\HTTP\ResponseInterface;
 
 class User extends BaseController
 {
     use ResponseTrait;
 
-    public function getUser()
+    public function getUser(): ResponseInterface
     {
         $userModel = model(UserModel::class);
         $field = 'username';
@@ -36,7 +37,7 @@ class User extends BaseController
         }
     }
 
-    public function updateUser()
+    public function updateUser(): ResponseInterface
     {
         $userModel = model(UserModel::class);
         $payload = $this->request->getJSON(true);
@@ -57,9 +58,12 @@ class User extends BaseController
 
     public function profile(): string
     {
-        
+        $userModel = model(UserModel::class);
+
+        $data['user'] = $userModel->getUser(session()->get('id'));
+
         return view('template/header') . 
-            view('user/profile') .
+            view('user/profile', $data) .
             view('template/footer');
     }
 }

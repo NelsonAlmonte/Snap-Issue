@@ -10,6 +10,8 @@
   --color-accent-dark: hsl(113, 6%, 40%); /* %10 */
 }
 
+[x-cloak] { display: none !important; }
+
 body {
   min-height: 100vh;
   background-color: var(--color-dominant);
@@ -87,7 +89,7 @@ body {
 
 video, .picture {
   width: 100%;
-  height: 80vh;
+  height: 85vh;
   object-fit: cover;
 }
 
@@ -209,4 +211,26 @@ input:-webkit-autofill:focus {
   left: 15px;
   top: 24px;
   color: var(--bs-white);
+}
+
+.issue-info-image-wrapper {
+  height: 230px;
+  width: 100%;
+}
+
+.issue-info-image {
+  height: 230px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-top-left-radius: var(--bs-border-radius-xxl) !important;
+  border-top-right-radius: var(--bs-border-radius-xxl) !important;
+}
+
+.issue-info-image.cover {
+  background-size: cover;
+}
+
+.issue-info-user-image {
+  height: 50px;
+  width: 50px; 
 }

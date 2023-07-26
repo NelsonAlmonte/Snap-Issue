@@ -1,7 +1,7 @@
 <div class="z-3 d-flex justify-content-between align-items-center position-absolute end-0 start-0 m-4">
   <a 
     class="circle-button text-white bg-transparent"
-    href="<?=site_url('onboarding')?>" 
+    href="<?=site_url('map')?>" 
   >
     <i class="bi-chevron-left"></i>
   </a>
@@ -15,12 +15,11 @@
   </div>
 </div>
 <div 
-  class="d-flex flex-wrap flex-column justify-content-around align-items-center mx-auto" 
   style="height: 100dvh"
   x-data="initCamera"
 >
   <template x-if="!isCameraOn">
-    <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100dvh">
       <div class="text-center">
         <div class="spinner-grow text-accent" role="status" style="width: 5rem; height: 5rem;">
           <span class="visually-hidden">Loading...</span>
@@ -29,19 +28,24 @@
       </div>
     </div>
   </template>
-  <div>
+  <div class="position-relative">
     <video class="rounded-bottom-5" autoplay x-ref="video"></video>
     <canvas class="d-none" x-ref="canvas"></canvas>
-  </div>
-  <div class="d-flex justify-content-between align-items-center flex-grow-1" x-data="captureIssue">
-    <button 
-      class="circle-button-lg btn-action bg-accent text-white take-picture"
-      data-bs-toggle="modal"
-      data-bs-target="#issueModal" 
-      @click="captureIssue"
+    <div
+      class="z-3 d-flex justify-content-center align-items-center position-absolute end-0 start-0 bottom-0 mb-5" 
+      x-cloak
+      x-show="isCameraOn"
     >
-      <i class="bi bi-camera"></i>
-    </button>
+      <button 
+        class="circle-button-lg btn-action bg-accent text-white take-picture"
+        data-bs-toggle="modal"
+        data-bs-target="#issueModal" 
+        x-data="captureIssue"
+        @click="captureIssue"
+      >
+        <i class="bi bi-camera"></i>
+      </button>
+    </div>
   </div>
 </div>
 <?=view_cell('CaptureIssueModal::render')?>
