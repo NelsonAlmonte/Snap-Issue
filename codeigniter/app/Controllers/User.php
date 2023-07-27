@@ -56,6 +56,37 @@ class User extends BaseController
         }
     }
 
+    public function updateProfile(): ResponseInterface
+    {
+        $userModel = model(UserModel::class);
+        $payload = $this->request->getJSON(true);
+        $response = [];
+
+        $response['token'] = csrf_hash();
+
+        if ($payload['user']['password']) {
+            $payload['user']['password'] = password_hash($payload['user']['password'], PASSWORD_DEFAULT);
+        }
+
+        try {
+            $userModel->updateUser($payload['user']);
+            $response['status'] = 200;
+            $this->_updateSessionData($payload['user']);
+            return $this->respondUpdated($response, 'Usuario actualizado!');
+        } catch (\Exception $e) {
+            $response['message'] = $e->getMessage();
+            $response['status'] = 400;
+            return $this->fail($response);
+        }
+    }
+
+    private function _updateSessionData($user)
+    {
+        unset($user['password']);
+        session()->remove($user);
+        session()->set($user);
+    }
+
     public function profile(): string
     {
         $userModel = model(UserModel::class);

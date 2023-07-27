@@ -9,7 +9,7 @@ class BottomNavbar extends Cell
     protected $links = [
         [
             'url'     => 'map',
-            'icon'     => 'bi-map-fill',
+            'icon'     => 'bi-map',
             'isActive' => false,
         ],
         [
@@ -19,7 +19,7 @@ class BottomNavbar extends Cell
         ],
         [
             'url'     => 'profile',
-            'icon'     => 'bi-person-fill',
+            'icon'     => 'bi-person',
             'isActive' => false,
         ],
     ];
@@ -30,8 +30,10 @@ class BottomNavbar extends Cell
         $segments = $uri->getSegments();
         foreach ($this->links as $key => $link) {
             foreach ($segments as $segment) {
-                if ($link['url'] == $segment) 
+                if ($link['url'] == $segment) {
                     $this->links[$key]['isActive'] = true;
+                    $this->links[$key]['icon'] = $this->links[$key]['icon'] . '-fill';
+                }
             }
         }
         $this->links[2]['url'] = 'profile/' . session()->get('id');

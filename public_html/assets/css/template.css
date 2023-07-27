@@ -69,16 +69,16 @@ body {
   border-color: transparent;
 }
 
-.circle-button-lg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.circle-button.circle-button-sm {
+  width: 30px;
+  height: 30px;
+  font-size: 17px;
+}
+
+.circle-button.circle-button-lg {
   width: 60px;
   height: 60px;
-  text-align: center;
-  border-radius: 100%;
   font-size: 25px;
-  border-color: transparent;
 }
 
 .action-button:disabled, .action-button.disabled {
@@ -99,8 +99,8 @@ video, .picture {
 
 .modal-header-placeholder {
   display: inline-flex;
-  height: 2rem;
-  width: 2rem;
+  height: 30px;
+  width: 30px;
 }
 
 .modal-header-icon {

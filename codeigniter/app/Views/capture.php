@@ -37,7 +37,7 @@
       x-show="isCameraOn"
     >
       <button 
-        class="circle-button-lg btn-action bg-accent text-white take-picture"
+        class="circle-button circle-button-lg btn-action bg-accent text-white take-picture shadow-lg"
         data-bs-toggle="modal"
         data-bs-target="#issueModal" 
         x-data="captureIssue"

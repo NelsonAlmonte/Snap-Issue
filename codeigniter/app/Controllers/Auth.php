@@ -109,7 +109,9 @@ class Auth extends BaseController
             'isLoggedIn' => TRUE,
         ];
 
-        return session()->set($sessionData);
+        session()->set($sessionData);
+        
+        return session()->get('id') ? true : false;
     }
 
     private function _getPermissions($role)

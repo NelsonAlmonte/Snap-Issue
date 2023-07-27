@@ -29,14 +29,14 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+$routes->get('/', 'Auth::login');
+
 $routes->group('/', ['filter' => 'isloggedin'], static function($routes) {
     $routes->get('capture', 'Home::capture');
     $routes->get('map', 'Home::map');
     $routes->get('onboarding', 'Home::onboarding');
     $routes->get('profile/(:num)', 'User::profile/$1');
-    $routes->get('profile/(:num)/edit', 'User::edit/$1');
 });
-$routes->get('/', 'Home::capture', ['filter' => 'isloggedin']);
 
 $routes->group('auth', static function($routes) {
     $routes->get('login', 'Auth::login');
@@ -57,6 +57,7 @@ $routes->group('v1', static function($routes) {
     $routes->group('user', static function($routes) {
         $routes->get('getUser', 'User::getUser');
         $routes->put('', 'User::updateUser');
+        $routes->put('updateProfile', 'User::updateProfile');
     });
 });
 

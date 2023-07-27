@@ -24,18 +24,18 @@
 
         <div x-show="!isLoading">
           <div class="d-flex justify-content-between align-items-center position-absolute start-0 end-0 m-3">
-            <button
-              class="circle-button text-white bg-transparent"
-              @click="bootstrap.Modal.getInstance($refs.issueModal).hide()"
-            >
-              <i class="bi bi-x-lg"></i>
-            </button>
             <a 
               class="circle-button text-white bg-transparent glightbox"
               :href="issue.pictureFullPath"
             >
               <i class="bi bi-fullscreen"></i>
             </a>
+            <button
+              class="circle-button text-white bg-transparent"
+              @click="bootstrap.Modal.getInstance($refs.issueModal).hide()"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
           </div>
           <div class="issue-info-image-wrapper">
             <div :style="`background-image: url('${issue.pictureFullPath}')`" class="issue-info-image cover"></div>

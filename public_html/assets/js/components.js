@@ -398,6 +398,52 @@ document.addEventListener('alpine:init', () => {
 		// },
 	}));
 
+	Alpine.data('editProfile', () => ({
+		id: '',
+		name: '',
+		last: '',
+		password: '',
+		confirmPassword: '',
+		async init() {
+			const user = await this.getUser();
+			this.id = user.data.id;
+			this.name = user.data.name;
+			this.last = user.data.last;
+		},
+		async getUser() {
+			const payload = {
+				url: `/v1/user/getUser`,
+				method: 'GET',
+				data: null,
+			};
+
+			const [response, error] = await useFetch(payload);
+
+			return response;
+		},
+		async updateProfile() {
+			const user = {
+				id: this.id,
+				name: this.name,
+				last: this.last,
+				password: this.password,
+			};
+
+			const payload = {
+				url: `/v1/user/updateProfile`,
+				method: 'PUT',
+				data: {
+					user: user
+				},
+			};
+
+			const [response, error] = await useFetch(payload);
+
+			if (response.status === 200)
+				document.location.reload()
+		}
+	}));
+
 	async function useFetch(payload) {
 		try {
 			if (payload.method !== 'GET') {
