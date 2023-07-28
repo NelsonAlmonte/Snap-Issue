@@ -14,7 +14,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body class="bg-dominant">
+<body class="bg-light">
   <main>
     <div class="container-fluid">
       <div class="d-flex justify-content-center align-items-center mx-auto" style="height: 100dvh">
@@ -23,19 +23,19 @@
           <p class="text-center text-danger"><?= session()->getFlashdata('message') ?></p>
           <form action="<?=site_url('auth/authenticate')?>" method="post">
             <input class="csrf" type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
-            <div class="form-input-container mb-4">
-              <input type="text" class="form-input" id="username" name="username" placeholder="Usuario"
+            <div class="form-input-container bg-secondary mb-4">
+              <input type="text" class="form-input bg-secondary" id="username" name="username" placeholder="Usuario"
                 autocomplete="off">
             </div>
-            <div class="form-input-container mb-4">
-              <input type="password" class="form-input" id="password" name="password" placeholder="Contraseña"
+            <div class="form-input-container bg-secondary mb-4">
+              <input type="password" class="form-input bg-secondary" id="password" name="password" placeholder="Contraseña"
                 autocomplete="off">
             </div>
-            <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="submit">Iniciar sesión</button>
+            <button class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3" type="submit">Iniciar sesión</button>
           </form>
           <div class="mt-5 text-center">
             <span class="text-secondary fw-bold">¿Aún no estas registrado?</span>
-            <a class="text-accent fw-bold" href="<?=site_url('auth/signup')?>">Registrate</a> 
+            <a class="text-primary fw-bold" href="<?=site_url('auth/signup')?>">Registrate</a> 
           </div>
         </div>
       </div>

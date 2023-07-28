@@ -10,11 +10,11 @@
     x-data
   >
     <div 
-      class="d-flex justify-content-between align-items-center bg-complementary rounded-4 p-4 mb-4"
+      class="d-flex justify-content-between align-items-center bg-info rounded-4 p-4 mb-4"
       @click="bootstrap.Modal.getOrCreateInstance($refs.editProfile).show()"
     >
       <div class="d-flex justify-content-start align-items-baseline">
-        <span class="circle-button bg-accent text-white">
+        <span class="circle-button bg-primary text-white">
           <i class="bi bi-person"></i>
         </span>
         <h6 style="font-size: 18px;" class="ms-3 fw-bold">Editar perfil</h6>
@@ -23,11 +23,11 @@
     </div>
 
     <div 
-      class="d-flex justify-content-between align-items-center bg-complementary rounded-4 p-4 mb-4"
+      class="d-flex justify-content-between align-items-center bg-info rounded-4 p-4 mb-4"
       @click="window.location.replace('/onboarding');"
     >
       <div class="d-flex justify-content-start align-items-baseline">
-        <span class="circle-button bg-accent text-white">
+        <span class="circle-button bg-primary text-white">
           <i class="bi bi-gear"></i>
         </span>
         <h6 style="font-size: 18px;" class="ms-3 fw-bold">Onboarding</h6>
@@ -36,11 +36,11 @@
     </div>
 
     <div 
-      class="d-flex justify-content-between align-items-center bg-complementary rounded-4 p-4 mb-4"
+      class="d-flex justify-content-between align-items-center bg-info rounded-4 p-4 mb-4"
       @click="window.location.replace('/auth/logout');"
     >
       <div class="d-flex justify-content-start align-items-baseline">
-        <span class="circle-button bg-accent text-white">
+        <span class="circle-button bg-primary text-white">
           <i class="bi bi-box-arrow-right"></i>
         </span>
         <h6 style="font-size: 18px;" class="ms-3 fw-bold">Cerrar sesión</h6>

@@ -9,12 +9,12 @@
   x-ref="issueModal"
 >
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-dominant rounded-5 border-0">
+    <div class="modal-content bg-light rounded-5 border-0">
       <div class="modal-body p-0">
         <template x-if="isLoading">
           <div class="d-flex justify-content-center py-4">
             <div class="text-center">
-              <div class="spinner-grow text-accent" role="status" style="width: 5rem; height: 5rem;">
+              <div class="spinner-grow text-primary mb-4" role="status" style="width: 5rem; height: 5rem;">
                 <span class="visually-hidden">Loading...</span>
               </div>
               <h5 class="fw-bold">Cargando incidencia...</h5>
@@ -25,13 +25,13 @@
         <div x-show="!isLoading">
           <div class="d-flex justify-content-between align-items-center position-absolute start-0 end-0 m-3">
             <a 
-              class="circle-button text-white bg-transparent glightbox"
+              class="circle-button text-white bg-translucent glightbox"
               :href="issue.pictureFullPath"
             >
               <i class="bi bi-fullscreen"></i>
             </a>
             <button
-              class="circle-button text-white bg-transparent"
+              class="circle-button text-white bg-translucent"
               @click="bootstrap.Modal.getInstance($refs.issueModal).hide()"
             >
               <i class="bi bi-x-lg"></i>
@@ -46,7 +46,7 @@
               <img class="issue-info-user-image rounded-circle" :src="reporter.profileImage" alt="foo">
               <div class="row ms-1">
                 <span class="fw-bold" x-text="reporter.fullName"></span>
-                <span class="fw-medium small text-secondary" x-text="issue.relativeDate"></span>
+                <span class="fw-medium small text-black-50" x-text="issue.relativeDate"></span>
               </div>
             </div>
           </div>

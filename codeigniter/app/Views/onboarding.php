@@ -14,7 +14,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body>
+<body class="bg-light">
   <main>
     <div class="container-fluid" x-data="permissions">
       <div 
@@ -25,10 +25,10 @@
       >
         <div class="text-center">
           <h1 class="fw-bold lh-lg">Bienvenido a <br>Snap Issue</h1>
-          <h4 class="text-secondary lh-base">Snap Issue es la app que le da una voz a ti y a tu comunidad.</h4>
+          <h4 class="text-body-tertiary lh-base">Snap Issue es la app que le da una voz a ti y a tu comunidad.</h4>
         </div>
         <img class="img-fluid" src="<?=PATH_TO_VIEW_ASSETS_ONBOARDING?>welcome.svg" alt="welcome">
-        <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button"
+        <button class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3" type="button"
           @click="step ++">Continuar</button>
       </div>
 
@@ -40,14 +40,14 @@
       >
         <div class="text-center">
           <h1 class="fw-bold lh-lg">Antes de <br>empezar</h1>
-          <h4 class="text-secondary lh-base">Antes de que empieces a utilizar la app necesitamos unos cuantos
+          <h4 class="text-body-tertiary lh-base">Antes de que empieces a utilizar la app necesitamos unos cuantos
             permisos.</h4>
         </div>
         <img class="img-fluid" src="<?=PATH_TO_VIEW_ASSETS_ONBOARDING?>ask.svg" alt="ask">
         <div class="d-flex justify-content-center align-content-center w-100">
-          <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 me-2 py-3" type="button"
+          <button class="btn btn-secondary rounded-pill text-white fw-bold w-100 mt-4 me-2 py-3" type="button"
             @click="step --">Regresar</button>
-          <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button"
+          <button class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3" type="button"
             @click="step ++">Continuar</button>
         </div>
       </div>
@@ -60,13 +60,13 @@
       >
         <div class="text-center">
           <h1 class="fw-bold lh-lg">Necesitamos tu cámara</h1>
-          <h4 class="text-secondary lh-base">Tu cámara es vital para que puedas empezar a ser escuchado.</h4>
+          <h4 class="text-body-tertiary lh-base">Tu cámara es vital para que puedas empezar a ser escuchado.</h4>
         </div>
         <img class="img-fluid" src="<?=PATH_TO_VIEW_ASSETS_ONBOARDING?>camera.svg" alt="camera">
         <div class="d-flex justify-content-center align-content-center w-100">
-          <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 me-2 py-3" type="button"
+          <button class="btn btn-secondary rounded-pill text-white fw-bold w-100 mt-4 me-2 py-3" type="button"
             @click="step --">Regresar</button>
-          <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button"
+          <button class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3" type="button"
             @click="checkPermission('camera');">Continuar</button>
         </div>
       </div>
@@ -79,13 +79,13 @@
       >
         <div class="text-center">
           <h1 class="fw-bold lh-lg">Necesitamos tu localización</h1>
-          <h4 class="text-secondary lh-base">Tú localización es primodial para saber el lugar de tu problemática.</h4>
+          <h4 class="text-body-tertiary lh-base">Tú localización es primodial para saber el lugar de tu problemática.</h4>
         </div>
         <img class="img-fluid" src="<?=PATH_TO_VIEW_ASSETS_ONBOARDING?>location.svg" alt="location">
         <div class="d-flex justify-content-center align-content-center w-100">
-          <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 me-2 py-3" type="button"
+          <button class="btn btn-secondary rounded-pill text-white fw-bold w-100 mt-4 me-2 py-3" type="button"
             @click="step --">Regresar</button>
-          <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button"
+          <button class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3" type="button"
             @click="checkPermission('geolocation');">Continuar</button>
         </div>
       </div>
@@ -99,10 +99,10 @@
       >
         <div class="text-center">
           <h1 class="fw-bold lh-lg">Todo listo</h1>
-          <h4 class="text-secondary lh-base">Todo esta listo para que puedas empezar a ser escuchado.</h4>
+          <h4 class="text-body-tertiary lh-base">Todo esta listo para que puedas empezar a ser escuchado.</h4>
         </div>
         <img class="img-fluid" src="<?=PATH_TO_VIEW_ASSETS_ONBOARDING?>ready.svg" alt="welcome">
-        <button class="btn btn-block rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button" @click="completeOnboarding">Continuar</button>
+        <button class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3" type="button" @click="completeOnboarding">Continuar</button>
       </div>
       <input class="csrf" type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
     </div>

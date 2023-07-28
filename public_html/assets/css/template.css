@@ -1,56 +1,20 @@
 :root {
   scroll-behavior: smooth;
   /* Template colors */
-  --color-dominant: hsl(29, 60%, 93%); /* %60 */
-  --color-complementary: hsl(105, 24%, 77%); /* %30 */
-  --color-accent: hsl(113, 6%, 50%); /* %10 */
+  --color-dominant: var(--bs-light); /* %60 */
+  --color-complementary: var(--bs-info); /* %30 */
+  --color-accent: var(--bs-primary); /* %10 */
 
-  --color-dominant-dark: hsl(29, 60%, 83%); /* %60 */
-  --color-complementary-dark: hsl(105, 24%, 67%); /* %30 */
-  --color-accent-dark: hsl(113, 6%, 40%); /* %10 */
 }
 
 [x-cloak] { display: none !important; }
 
 body {
   min-height: 100vh;
-  background-color: var(--color-dominant);
 }
 
-/*--------------------------------------------------------------
-# Background
---------------------------------------------------------------*/
-.bg-dominant {
-  background-color: var(--color-dominant);
-}
-
-.bg-complementary {
-  background-color: var(--color-complementary);
-}
-
-.bg-accent {
-  background-color: var(--color-accent);
-}
-
-.bg-transparent {
-  background-color: rgba(0, 0, 0, 0.3);
-  border-color: transparent;
-
-}
-
-/*--------------------------------------------------------------
-# Text
---------------------------------------------------------------*/
-.text-dominant {
-  color: var(--color-dominant);
-}
-
-.text-complementary {
-  color: var(--color-complementary);
-}
-
-.text-accent {
-  color: var(--color-accent);
+.bg-translucent {
+  background-color: var(--bs-border-color-translucent);
 }
 
 /*--------------------------------------------------------------
@@ -79,12 +43,6 @@ body {
   width: 60px;
   height: 60px;
   font-size: 25px;
-}
-
-.action-button:disabled, .action-button.disabled {
-  pointer-events: none;
-  background-color: var(--color-accent-dark);
-  opacity: 0.65;
 }
 
 video, .picture {
@@ -129,7 +87,7 @@ video, .picture {
 
 .category > input:checked + .selected {
   transition: all 0.3s;
-  background-color: var(--color-accent);
+  background-color: var(--bs-primary);
   color: #fff !important;
 }
 
@@ -142,7 +100,7 @@ video, .picture {
   left: 50%;
   top: 50%;
   margin: -15px 0 0 -15px;
-  background-color: var(--color-complementary);
+  background-color: var(--bs-info);
 }
 
 .issue-marker::after {
@@ -150,7 +108,7 @@ video, .picture {
   width: 30px;
   height: 30px;
   margin: 5px 0 0 5px;
-  background: var(--color-accent);
+  background: var(--bs-primary);
   position: absolute;
   border-radius: 50%;
 }
@@ -168,7 +126,6 @@ video, .picture {
 /* Forms */
 
 .form-input-container {
-  background-color: var(--color-complementary);
   position: relative;
   padding: 10px;
   border-radius: 1rem;
@@ -180,7 +137,6 @@ video, .picture {
   padding: 0.375rem 0.75rem;
   outline: none;
   border: 0;
-  background-color: var(--color-complementary);
 }
 
 .form-input::-webkit-input-placeholder {
@@ -194,10 +150,6 @@ video, .picture {
 
 .form-input:focus::-webkit-input-placeholder {
   color: transparent;
-}
-
-.form-input:active {
-  background-color: var(--color-complementary);
 }
 
 input:-webkit-autofill,

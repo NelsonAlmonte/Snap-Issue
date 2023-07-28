@@ -99,27 +99,13 @@ document.addEventListener('alpine:init', () => {
 
 	Alpine.data('initCamera', () => ({
 		isCameraOn: false,
-		initialConstraints: {
-			video: {
-				width: {
-					min: 1280,
-					ideal: 1920,
-					max: 2560,
-				},
-				height: {
-					min: 720,
-					ideal: 1080,
-					max: 1440,
-				},
-				// facingMode: {
-				//   exact: 'environment'
-				// },
-			},
-		},
+		isFlashOn: false,
+		facingMode: 'environment',
+		stream: '',
 		init() {
-			this.startStream();
+			this.startStream(this.facingMode);
 		},
-		async startStream() {
+		async startStream(facingMode) {
 			const deviceId = await this.getDeviceId();
 
 			if (!deviceId) {
@@ -127,18 +113,33 @@ document.addEventListener('alpine:init', () => {
 				return;
 			}
 
-			const updatedConstraints = {
-				...this.initialConstraints,
+			const constraints = {
+				video: {
+					width: {
+						min: 1280,
+						ideal: 1920,
+						max: 2560,
+					},
+					height: {
+						min: 720,
+						ideal: 1080,
+						max: 1440,
+					},
+					facingMode: {
+					  exact: facingMode
+					},
+				},
 				deviceId: {
 					exact: deviceId,
 				},
 			};
 
 			const stream = await navigator.mediaDevices.getUserMedia(
-				updatedConstraints
+				constraints
 			);
 			this.$refs.video.srcObject = stream;
 			this.isCameraOn = true;
+			this.stream = stream;
 		},
 		async getDeviceId() {
 			const devices = await navigator.mediaDevices.enumerateDevices();
@@ -147,6 +148,22 @@ document.addEventListener('alpine:init', () => {
 			);
 
 			return videoDevices.length ? videoDevices[0].deviceId : '';
+		},
+		toggleFlash() {
+			this.isFlashOn = !this.isFlashOn;
+			const track = this.stream.getVideoTracks()[0];
+			const imageCapture = new ImageCapture(track);
+			imageCapture.getPhotoCapabilities().then(() => {
+				track.applyConstraints({
+					advanced: [{ torch: this.isFlashOn }],
+				});
+			});
+		},
+		toggleFacingMode() {
+			if (this.facingMode === 'environment') this.facingMode = 'user';
+			else this.facingMode = 'environment';
+
+			this.startStream(this.facingMode);
 		},
 	}));
 
@@ -202,7 +219,7 @@ document.addEventListener('alpine:init', () => {
 			const [response, error] = await useFetch(payload);
 
 			if (response.status === 200) return response.data.id;
-		}
+		},
 	}));
 
 	Alpine.data('handleIssue', () => ({
@@ -433,15 +450,14 @@ document.addEventListener('alpine:init', () => {
 				url: `/v1/user/updateProfile`,
 				method: 'PUT',
 				data: {
-					user: user
+					user: user,
 				},
 			};
 
 			const [response, error] = await useFetch(payload);
 
-			if (response.status === 200)
-				document.location.reload()
-		}
+			if (response.status === 200) document.location.reload();
+		},
 	}));
 
 	async function useFetch(payload) {

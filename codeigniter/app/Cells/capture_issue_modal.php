@@ -12,7 +12,7 @@
   x-ref="issueModal"
 >
   <div class="modal-dialog modal-dialog-centered modal-fullscreen">
-    <div class="modal-content bg-dominant border-0">
+    <div class="modal-content bg-light border-0">
       <div class="modal-body">
         <div 
           x-show.important="step === 0"
@@ -24,13 +24,13 @@
           <img class="rounded-2 w-100 object-fit-cover" :src="picture" style="height: 80vh;">
           <div class="d-flex justify-content-center align-content-center w-100">
             <button 
-              class="btn rounded-pill bg-accent text-white fw-bold w-100 mt-4 me-2 py-3" 
+              class="btn btn-secondary rounded-pill text-white fw-bold w-100 mt-4 me-2 py-3" 
               type="button"
               data-bs-dismiss="modal" 
               aria-label="Close"
             >Retomar</button>
             <button 
-              class="btn rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" 
+              class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3" 
               type="button"
               @click="
                 step ++
@@ -51,7 +51,7 @@
             <template x-if="!categories.length">
               <div class="d-flex justify-content-center">
                 <div class="text-center">
-                  <div class="spinner-grow text-accent" role="status" style="width: 5rem; height: 5rem;">
+                  <div class="spinner-grow text-primary mb-4" role="status" style="width: 5rem; height: 5rem;">
                     <span class="visually-hidden">Loading...</span>
                   </div>
                   <h5 class="fw-bold">Cargando categorias...</h5>
@@ -61,7 +61,7 @@
             <template x-for="category in categories" :key="category.id">
               <div class="col-6" x-id="['text-input']">
                 <label 
-                  class="category d-flex flex-column justify-content-center bg-complementary w-100 h-100 rounded-5 text-center" 
+                  class="category d-flex flex-column justify-content-center bg-info w-100 h-100 rounded-5 text-center" 
                   @click="categoryId = category.id" 
                   :for="$id('text-input')"
                 >
@@ -83,12 +83,12 @@
           </div>
           <div class="d-flex justify-content-center align-content-center w-100">
             <button 
-              class="btn action-button rounded-pill bg-accent text-white fw-bold w-100 mt-4 me-2 py-3" 
+              class="btn btn-secondary rounded-pill text-white fw-bold w-100 mt-4 me-2 py-3" 
               type="button"
               @click="step --"
             >Regresar</button>
             <button 
-              class="btn action-button rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3"
+              class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3"
               :class="categoryId === '' ? 'disabled' : ''"
               type="button"
               @click="saveIssue"                
@@ -103,10 +103,10 @@
         >
           <div class="text-center">
             <h1 class="fw-bold lh-lg">Su reporte <br>ha sido enviado!</h1>
-            <h4 class="text-secondary lh-base">Su reporte ha sido recibido y esta siendo procesado por las autoridades de su comunidad.</h4>
+            <h4 class="text-body-tertiary lh-base">Su reporte ha sido recibido y esta siendo procesado por las autoridades de su comunidad.</h4>
           </div>
           <img class="img-fluid" src="<?=PATH_TO_VIEW_ASSETS_ONBOARDING?>ready.svg" alt="ready">
-          <button class="btn rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button"
+          <button class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3" type="button"
             @click="closeModal">Continuar</button>
         </div>
         <div 
@@ -117,10 +117,10 @@
         >
           <div class="text-center">
             <h1 class="fw-bold lh-lg">Uh oh <br>Algo ha salido mal!</h1>
-            <h4 class="text-secondary lh-base">Algo ha salido mal al enviar el reporte, actualiza o cierra y abre la app nuevamente.</h4>
+            <h4 class="text-body-tertiary lh-base">Algo ha salido mal al enviar el reporte, actualiza o cierra y abre la app nuevamente.</h4>
           </div>
           <img class="img-fluid" src="<?=PATH_TO_VIEW_ASSETS_SYSTEM?>error.svg" alt="error">
-          <button class="btn rounded-pill bg-accent text-white fw-bold w-100 mt-4 py-3" type="button"
+          <button class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3" type="button"
             @click="document.location.reload()">Continuar</button>
         </div>
       </div>

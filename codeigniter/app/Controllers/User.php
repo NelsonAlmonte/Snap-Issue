@@ -64,8 +64,10 @@ class User extends BaseController
 
         $response['token'] = csrf_hash();
 
-        if ($payload['user']['password']) {
+        if (!empty($payload['user']['password'])) {
             $payload['user']['password'] = password_hash($payload['user']['password'], PASSWORD_DEFAULT);
+        } else {
+            unset($payload['user']['password']);
         }
 
         try {
