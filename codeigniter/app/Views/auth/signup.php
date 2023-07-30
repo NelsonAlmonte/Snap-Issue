@@ -14,39 +14,40 @@
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body class="bg-dominant">
+<body class="bg-light">
   <main>
     <div class="container-fluid">
       <div class="d-flex justify-content-center align-items-center mx-auto" style="height: 100dvh">
         <div class="mx-2 w-100">
+          <h2 class="fw-bold mb-5">Snap Issue</h2>
           <h3 class="fw-bold mb-5">Registra tu cuenta</h3>
           <p class="text-center text-danger"><?= session()->getFlashdata('message') ?></p>
           <form action="<?=site_url('auth/register')?>" method="post">
             <input class="csrf" type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
             <div class="row">
               <div class="col-6">
-                <div class="form-input-container bg-secondary mb-4">
-                  <input type="text" class="form-input bg-secondary" name="name" placeholder="Nombres"
+                <div class="form-input-container bg-info mb-4">
+                  <input type="text" class="form-input bg-info" name="name" placeholder="Nombres"
                     autocomplete="off" required>
                 </div>
               </div>
               <div class="col-6">
-                <div class="form-input-container bg-secondary mb-4">
-                  <input type="text" class="form-input bg-secondary" name="last" placeholder="Apellidos"
+                <div class="form-input-container bg-info mb-4">
+                  <input type="text" class="form-input bg-info" name="last" placeholder="Apellidos"
                     autocomplete="off" required>
                 </div>
               </div>
             </div>
-            <div class="form-input-container bg-secondary mb-4">
-              <input type="email" class="form-input bg-secondary" name="email" placeholder="Correo"
+            <div class="form-input-container bg-info mb-4">
+              <input type="email" class="form-input bg-info" name="email" placeholder="Correo"
                 autocomplete="off" required>
             </div>
-            <div class="form-input-container bg-secondary mb-4">
-              <input type="text" class="form-input bg-secondary" name="username" placeholder="Usuario"
+            <div class="form-input-container bg-info mb-4">
+              <input type="text" class="form-input bg-info" name="username" placeholder="Usuario"
                 autocomplete="off" required>
             </div>
-            <div class="form-input-container bg-secondary mb-4">
-              <input type="password" class="form-input bg-secondary" id="password" name="password" placeholder="Contraseña"
+            <div class="form-input-container bg-info mb-4">
+              <input type="password" class="form-input bg-info" id="password" name="password" placeholder="Contraseña"
                 autocomplete="off" required>
             </div>
             <button class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3"

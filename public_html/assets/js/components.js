@@ -261,6 +261,7 @@ document.addEventListener('alpine:init', () => {
 			const issueModal = bootstrap.Modal.getInstance(this.$refs.issueModal);
 			issueModal.hide();
 			this.step = 0;
+			this.picture = '';
 		},
 		async getCategories() {
 			const payload = {
@@ -303,6 +304,7 @@ document.addEventListener('alpine:init', () => {
 		issue: '',
 		reporter: '',
 		isLoading: true,
+		isPictureShowing: false,
 		init() {
 			this.buildMap();
 			this.placeMarkers();
@@ -384,6 +386,7 @@ document.addEventListener('alpine:init', () => {
 
 				issueModalRef.addEventListener('hidden.bs.modal', () => {
 					this.isLoading = true;
+					this.isPictureShowing = false;
 					this.issue = '';
 					this.reporter = '';
 				});
@@ -531,9 +534,9 @@ document.addEventListener('alpine:init', () => {
 		return rtf.format(Math.floor(deltaSeconds / divisor), units[unitIndex]);
 	}
 
-	const lightbox = GLightbox({
-		selector: '.glightbox',
-		width: 1200,
-		height: 900,
-	});
+	// const lightbox = GLightbox({
+	// 	selector: '.glightbox',
+	// 	width: 1200,
+	// 	height: 900,
+	// });
 });

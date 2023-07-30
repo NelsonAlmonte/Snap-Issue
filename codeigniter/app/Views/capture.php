@@ -37,23 +37,26 @@
       x-show="isCameraOn"
     >
       <button 
-        class="btn btn-secondary circle-button btn-action text-white take-picture shadow-lg"
+        class="bg-translucent circle-button btn-action text-white take-picture shadow-lg"
         @click="toggleFacingMode"
       >
         <i class="bi bi-arrow-repeat"></i>
       </button>
-      <button 
-        class="btn btn-primary circle-button circle-button-lg btn-action text-white take-picture shadow-lg"
-        data-bs-toggle="modal"
-        data-bs-target="#issueModal" 
-        x-data="captureIssue"
-        @click="captureIssue"
-      >
-        <i class="bi bi-camera"></i>
-      </button>
+      <div class="position-relative">
+        <button 
+          class="circle-button bg-white text-primary take-picture position-absolute z-3" style="transform:translate(-50%, -50%);"
+          data-bs-toggle="modal"
+          data-bs-target="#issueModal" 
+          x-data="captureIssue"
+          @click="captureIssue"
+        >
+          <!-- <i class="bi bi-camera"></i> -->
+        </button>
+        <div class="circle-button circle-button-lg bg-translucent position-absolute" style="transform:translate(-50%, -50%);"></div>
+      </div>
 
       <button 
-        class="btn btn-secondary circle-button btn-action text-white take-picture shadow-lg"
+        class="bg-translucent circle-button btn-action text-white take-picture shadow-lg"
         @click="toggleFlash"
       >
         <i class="bi bi-lightning"></i>

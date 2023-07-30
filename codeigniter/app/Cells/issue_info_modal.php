@@ -23,33 +23,52 @@
         </template>
 
         <div x-show="!isLoading">
-          <div class="d-flex justify-content-between align-items-center position-absolute start-0 end-0 m-3">
-            <a 
-              class="circle-button text-white bg-translucent glightbox"
-              :href="issue.pictureFullPath"
-            >
-              <i class="bi bi-fullscreen"></i>
-            </a>
-            <button
-              class="circle-button text-white bg-translucent"
-              @click="bootstrap.Modal.getInstance($refs.issueModal).hide()"
-            >
-              <i class="bi bi-x-lg"></i>
-            </button>
-          </div>
-          <div class="issue-info-image-wrapper">
-            <div :style="`background-image: url('${issue.pictureFullPath}')`" class="issue-info-image cover"></div>
-          </div>
-          <div class="p-4">
-            <h3 class="fw-bold mb-3" x-text="issue.category_name"></h3>
-            <div class="d-flex justify-content-start align-items-center mt-4">
-              <img class="issue-info-user-image rounded-circle" :src="reporter.profileImage" alt="foo">
-              <div class="row ms-1">
-                <span class="fw-bold" x-text="reporter.fullName"></span>
-                <span class="fw-medium small text-black-50" x-text="issue.relativeDate"></span>
+          <template x-if="!isPictureShowing">
+            <div>
+              <div class="d-flex justify-content-between align-items-center position-absolute start-0 end-0 m-3">
+                <buttom
+                  class="circle-button text-white bg-translucent"
+                  @click="isPictureShowing = !isPictureShowing"
+                >
+                  <i class="bi bi-fullscreen"></i>
+                </buttom>
+                <button
+                  class="circle-button text-white bg-translucent"
+                  @click="bootstrap.Modal.getInstance($refs.issueModal).hide()"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+              <div class="issue-info-image-wrapper">
+                <div :style="`background-image: url('${issue.pictureFullPath}')`" class="issue-info-image cover"></div>
+              </div>
+              <div class="p-4">
+                <h3 class="fw-bold mb-3" x-text="issue.category_name"></h3>
+                <div class="d-flex justify-content-start align-items-center mt-4">
+                  <img class="issue-info-user-image rounded-circle" :src="reporter.profileImage" alt="foo">
+                  <div class="row ms-1">
+                    <span class="fw-bold" x-text="reporter.fullName"></span>
+                    <span class="fw-medium small text-black-50" x-text="issue.relativeDate"></span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </template>
+          <template x-if="isPictureShowing">
+            <div>
+              <div class="d-flex justify-content-end align-items-center position-absolute start-0 end-0 m-3">
+                <button
+                  class="circle-button text-white bg-translucent"
+                  @click="isPictureShowing = !isPictureShowing"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+              <div class="">
+                <img class="img-fluid rounded-4" :src="issue.pictureFullPath" alt="foo">
+              </div>
+            </div>
+          </template>
         </div>
       </div>
     </div>

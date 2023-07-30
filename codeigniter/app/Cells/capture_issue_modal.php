@@ -18,26 +18,39 @@
           x-show.important="step === 0"
           x-transition:enter="animate__animated animate__fadeIn animate__fast"
         >
-          <div class="text-center mb-2">
-            <h1 class="fw-bold lh-lg">Fotografía de la incidencia</h1>
-          </div>
-          <img class="rounded-2 w-100 object-fit-cover" :src="picture" style="height: 80vh;">
-          <div class="d-flex justify-content-center align-content-center w-100">
-            <button 
-              class="btn btn-secondary rounded-pill text-white fw-bold w-100 mt-4 me-2 py-3" 
-              type="button"
-              data-bs-dismiss="modal" 
-              aria-label="Close"
-            >Retomar</button>
-            <button 
-              class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3" 
-              type="button"
-              @click="
-                step ++
-                getCategories()
-              "                
-            >Continuar</button>
-          </div>
+          <template x-if="!picture">
+            <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100dvh">
+              <div class="text-center">
+                <div class="spinner-grow text-primary mb-4" role="status" style="width: 5rem; height: 5rem;">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <h5 class="fw-bold">Cargando fotografía...</h5>
+              </div>
+            </div>
+          </template>
+          <template x-if="picture">
+            <div>
+              <div class="text-center mb-2">
+                <h1 class="fw-bold lh-lg">Fotografía de la incidencia</h1>
+              </div>
+              <img class="rounded-2 w-100 object-fit-cover" :src="picture" style="height: 80vh;">
+              <div class="d-flex justify-content-center align-content-center w-100">
+                <button 
+                  class="btn btn-secondary rounded-pill text-white fw-bold w-100 mt-4 me-2 py-3" 
+                  type="button"
+                  @click="closeModal"
+                >Retomar</button>
+                <button 
+                  class="btn btn-primary rounded-pill text-white fw-bold w-100 mt-4 py-3" 
+                  type="button"
+                  @click="
+                    step ++
+                    getCategories()
+                  "                
+                >Continuar</button>
+              </div>
+            </div>
+          </template>
         </div>
         <div 
           x-show.important="step === 1"
